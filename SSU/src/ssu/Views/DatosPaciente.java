@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ssu;
+package ssu.Views;
+
+import ssu.Views.Examenes_Laboratorio;
 
 /**
  *
@@ -232,7 +234,7 @@ public class DatosPaciente extends javax.swing.JPanel {
                     .addComponent(panel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel2.setText("Usuario :");
 

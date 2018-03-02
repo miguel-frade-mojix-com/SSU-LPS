@@ -123,7 +123,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="ssu.DatosPaciente" name="datosPaciente2">
+    <Component class="ssu.Views.DatosPaciente" name="datosPaciente2">
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>

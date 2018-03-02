@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ssu;
-import ssu.Examenes_Laboratorio;
+package ssu.Views;
+import ssu.Views.Examenes_Laboratorio;
 /**
  *
  * @author Miguel
@@ -37,7 +37,7 @@ public class Inicio extends javax.swing.JFrame {
         list2 = new java.awt.List();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        datosPaciente1 = new ssu.DatosPaciente();
+        datosPaciente1 = new ssu.Views.DatosPaciente();
         panel1 = new java.awt.Panel();
         jLabel3 = new javax.swing.JLabel();
         panel2 = new java.awt.Panel();
@@ -436,7 +436,7 @@ public class Inicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Table_Dr;
     private javax.swing.JTable Table_Pacientes;
-    private ssu.DatosPaciente datosPaciente1;
+    private ssu.Views.DatosPaciente datosPaciente1;
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;

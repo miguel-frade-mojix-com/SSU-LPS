@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ssu;
+package ssu.Views;
 
 /**
  *
@@ -64,7 +64,6 @@ public class Expediente_Clinico extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Expediente Clinico");
-        setPreferredSize(new java.awt.Dimension(1200, 753));
 
         panel1.setBackground(new java.awt.Color(204, 204, 255));
 

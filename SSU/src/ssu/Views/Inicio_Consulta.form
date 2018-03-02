@@ -96,7 +96,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="ssu.DatosPaciente" name="datosPaciente1">
+    <Component class="ssu.Views.DatosPaciente" name="datosPaciente1">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>

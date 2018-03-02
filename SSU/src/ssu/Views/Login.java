@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ssu;
+package ssu.Views;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 import java.awt.Toolkit;
-import ssu.Inicio;
+import ssu.Views.Inicio;
 /**
  *
  * @author Miguel

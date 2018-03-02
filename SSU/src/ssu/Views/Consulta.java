@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ssu;
+package ssu.Views;
+
+import ssu.Views.SignosVitales;
+import ssu.Views.Expediente_Clinico;
+import ssu.Views.VistaImpresion;
 
 /**
  *
@@ -27,7 +31,7 @@ public class Consulta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        datosPaciente2 = new ssu.DatosPaciente();
+        datosPaciente2 = new ssu.Views.DatosPaciente();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -323,7 +327,7 @@ public class Consulta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private ssu.DatosPaciente datosPaciente2;
+    private ssu.Views.DatosPaciente datosPaciente2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ssu;
+package ssu.Views;
 
 /**
  *
@@ -27,7 +27,7 @@ public class Inicio_Consulta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        datosPaciente1 = new ssu.DatosPaciente();
+        datosPaciente1 = new ssu.Views.DatosPaciente();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -179,7 +179,7 @@ public class Inicio_Consulta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private ssu.DatosPaciente datosPaciente1;
+    private ssu.Views.DatosPaciente datosPaciente1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
