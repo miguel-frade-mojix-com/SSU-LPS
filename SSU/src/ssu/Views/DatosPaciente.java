@@ -178,8 +178,6 @@ public class DatosPaciente extends javax.swing.JPanel {
         jLabel9.setForeground(new java.awt.Color(0, 0, 153));
         jLabel9.setText("INSTITUCIÓN :");
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ssu/UserIcon.png"))); // NOI18N
-
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
         panel1Layout.setHorizontalGroup(

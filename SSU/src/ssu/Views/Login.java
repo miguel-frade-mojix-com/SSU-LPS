@@ -4,10 +4,14 @@
  * and open the template in the editor.
  */
 package ssu.Views;
+import Controllers.DataBaseConnector;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 import java.awt.Toolkit;
 import ssu.Views.Inicio;
+
+
+
 /**
  *
  * @author Miguel
@@ -175,6 +179,11 @@ public class Login extends javax.swing.JFrame {
             systemExit();
             Inicio hm = new Inicio();
             hm.setVisible(true);
+            this.setVisible(false);
+            DataBaseConnector dbCon = new DataBaseConnector();
+            
+            dbCon.connect();
+            
        }else {
            JOptionPane.showMessageDialog(null,  "invalid user or password","Login Error",JOptionPane.ERROR_MESSAGE);
            clear();
