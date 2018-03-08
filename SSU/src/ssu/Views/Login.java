@@ -11,7 +11,6 @@ import java.awt.Toolkit;
 import ssu.Views.Inicio;
 
 
-
 /**
  *
  * @author Miguel
@@ -42,7 +41,7 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        Consulta_externa = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -111,9 +110,9 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 153, 51));
         jLabel3.setText("Sistema de Gestion Hospitalario");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(102, 0, 153));
-        jLabel4.setText("Consulta Externa");
+        Consulta_externa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Consulta_externa.setForeground(new java.awt.Color(102, 0, 153));
+        Consulta_externa.setText("Consulta Externa");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 255));
@@ -132,7 +131,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel4)
+                        .addComponent(Consulta_externa)
                         .addComponent(jLabel3)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jButton1)
@@ -147,7 +146,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4)
+                .addComponent(Consulta_externa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -174,15 +173,14 @@ public class Login extends javax.swing.JFrame {
         String password = PasswordField.getText();
         
         boolean valid=false;
-        
-       if( user.compareTo("MIKE")==0   ){
+        DataBaseConnector dbCon = new DataBaseConnector();
+            
+       if( dbCon.connect(user, password)   ){
             systemExit();
             Inicio hm = new Inicio();
             hm.setVisible(true);
             this.setVisible(false);
-            DataBaseConnector dbCon = new DataBaseConnector();
             
-            dbCon.connect();
             
        }else {
            JOptionPane.showMessageDialog(null,  "invalid user or password","Login Error",JOptionPane.ERROR_MESSAGE);
@@ -227,12 +225,13 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new Login().setVisible(true);   
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Consulta_externa;
     private javax.swing.JPasswordField PasswordField;
     private javax.swing.JTextField UserField;
     private javax.swing.JButton jButton1;
@@ -240,12 +239,9 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-
-
 
 
     private void systemExit(){
@@ -257,7 +253,7 @@ public class Login extends javax.swing.JFrame {
         
         UserField.setText(null);
         PasswordField.setText(null);
-        
+   
     }
 }
 

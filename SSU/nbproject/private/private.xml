@@ -3,16 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Miguel/Documents/NetBeansProjects/SSU/src/ssu/DatosPaciente.java</file>
-            <file>file:/C:/Users/Miguel/Documents/NetBeansProjects/SSU/src/ssu/Expediente_Clinico.java</file>
-            <file>file:/C:/Users/Miguel/Documents/NetBeansProjects/SSU/src/ssu/Examenes_Laboratorio.java</file>
-            <file>file:/C:/Users/Miguel/Documents/NetBeansProjects/SSU/src/ssu/Inicio.java</file>
-            <file>file:/C:/Users/Miguel/Documents/NetBeansProjects/SSU/src/ssu/SignosVitales.java</file>
-            <file>file:/C:/Users/Miguel/Documents/NetBeansProjects/SSU/src/ssu/Diagnosticos.java</file>
-            <file>file:/C:/Users/Miguel/Documents/NetBeansProjects/SSU/src/ssu/VistaImpresion.java</file>
-            <file>file:/C:/Users/Miguel/Documents/NetBeansProjects/SSU/src/ssu/PrescripccionMedica.java</file>
-            <file>file:/C:/Users/Miguel/Documents/NetBeansProjects/SSU/src/ssu/SOAP.java</file>
-            <file>file:/C:/Users/Miguel/Documents/NetBeansProjects/SSU/src/ssu/Consulta.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/ssu/Views/Login.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Classes/Datos_Personales.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Controllers/DataBaseConnector.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/ssu/Views/DatosPaciente.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Classes/Medico.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/ssu/Views/Consulta.java</file>
         </group>
     </open-files>
 </project-private>
