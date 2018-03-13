@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package ssu.Views;
+import Classes.Beneficiario;
+import Classes.Medico;
+import java.util.Date;
+import javax.swing.table.DefaultTableModel;
 import ssu.Views.Examenes_Laboratorio;
 /**
  *
@@ -16,6 +20,9 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
+        mostrarDatosUsuario();
+        mostrarDatosPaciente();
+        mostrarAgendados();
     }
 
     /**
@@ -42,7 +49,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         panel2 = new java.awt.Panel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Table_Dr = new javax.swing.JTable();
+        Table_Datos_Dr = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         panel6 = new java.awt.Panel();
         jLabel5 = new javax.swing.JLabel();
@@ -86,7 +93,9 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        Table_Pacientes.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(Table_Pacientes);
+        Table_Pacientes.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout panel3Layout = new javax.swing.GroupLayout(panel3);
         panel3.setLayout(panel3Layout);
@@ -150,21 +159,21 @@ public class Inicio extends javax.swing.JFrame {
 
         panel2.setBackground(new java.awt.Color(255, 255, 204));
 
-        Table_Dr.setBackground(new java.awt.Color(255, 255, 204));
-        Table_Dr.setBorder(new javax.swing.border.MatteBorder(null));
-        Table_Dr.setModel(new javax.swing.table.DefaultTableModel(
+        Table_Datos_Dr.setBackground(new java.awt.Color(255, 255, 204));
+        Table_Datos_Dr.setBorder(new javax.swing.border.MatteBorder(null));
+        Table_Datos_Dr.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "IDH", "ESPECIALIDAD", "NRO. CONSULTORIO", "TURNO", "HORA INICIO{", "HORA FIN"
+                "ESPECIALIDAD", "NRO. CONSULTORIO", "TURNO", "HORA INICIO{", "HORA FIN"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Short.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Short.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -175,9 +184,9 @@ public class Inicio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        Table_Dr.setColumnSelectionAllowed(true);
-        jScrollPane2.setViewportView(Table_Dr);
-        Table_Dr.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        Table_Datos_Dr.setColumnSelectionAllowed(true);
+        jScrollPane2.setViewportView(Table_Datos_Dr);
+        Table_Datos_Dr.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
@@ -393,8 +402,6 @@ public class Inicio extends javax.swing.JFrame {
 
         Consulta consulta = new Consulta();
         consulta.setVisible(true);
-        
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -432,9 +439,34 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void mostrarDatosUsuario(){
+        DefaultTableModel model = (DefaultTableModel) Table_Datos_Dr.getModel();
+        
+        Medico medico=new Medico("La Paz", "Av.Strongest", new Date(1984,1,12), 'M', "Manuel", "Jose", "Olave", "Claure","MEOF-13", "manuelolave@.upb.lp.edu", "Medico General", "16:00", "19:00");
+        
+        model.addRow(new Object[]{ medico.getEspecialidad(),medico.getConsultorio(),medico.getTurno(),medico.getHorarioInicio(),medico.getHorarioSalida()   });
+    }
+    
+    public void mostrarDatosPaciente(){
+        Beneficiario ben = new Beneficiario("La Paz", "Av Kantutani #545", new Date(1984,2,14), 'F', "Jennifer", "Carpio", "Lizeth", "Gonzales", new Date(2008,4,16),"Titular");
+        datosPaciente1.mostrarDatosPaciente(ben);
+    }
+    
+    
+    public void mostrarAgendados(){
+        DefaultTableModel tablaAgenda = (DefaultTableModel) Table_Pacientes.getModel();
+        
+        
+        tablaAgenda.addRow(new Object[]{ "16:00","Priscila Ando Aviles","33MD545D",0 });
+        tablaAgenda.addRow(new Object[]{ "16:15","Msnuel Cortez Roca","16454HFS",1 });
+        
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Table_Dr;
+    private javax.swing.JTable Table_Datos_Dr;
     private javax.swing.JTable Table_Pacientes;
     private ssu.Views.DatosPaciente datosPaciente1;
     private javax.swing.JButton jButton1;

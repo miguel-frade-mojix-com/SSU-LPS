@@ -8,6 +8,7 @@ import Controllers.DataBaseConnector;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import ssu.Views.Inicio;
 
 
@@ -58,6 +59,12 @@ public class Login extends javax.swing.JFrame {
         UserField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UserFieldActionPerformed(evt);
+            }
+        });
+
+        PasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PasswordFieldKeyPressed(evt);
             }
         });
 
@@ -169,7 +176,28 @@ public class Login extends javax.swing.JFrame {
     // Ingresar
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //
-        String user = UserField.getText();
+            verifyUser();
+            
+            
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+            System.exit(0);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void PasswordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordFieldKeyPressed
+        // TODO add your handling code here:
+        
+        System.out.println("ssu.Views.Login.PasswordFieldKeyPressed()" + evt.getKeyChar() ); 
+        System.out.println(" " + evt.getKeyCode()  );
+         if(evt.getKeyCode()==10   ){
+            verifyUser();
+            }
+    }//GEN-LAST:event_PasswordFieldKeyPressed
+
+    
+    private void verifyUser(){
+         String user = UserField.getText();
         String password = PasswordField.getText();
         
         boolean valid=false;
@@ -187,14 +215,7 @@ public class Login extends javax.swing.JFrame {
            clear();
            
        }
-            
-            
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            System.exit(0);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */
