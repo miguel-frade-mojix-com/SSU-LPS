@@ -326,6 +326,9 @@ public class Consulta extends javax.swing.JFrame {
         });
     }
 
+    public DatosPaciente getDatosPacientes(){return this.datosPaciente2;}
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ssu.Views.DatosPaciente datosPaciente2;
     private javax.swing.JButton jButton1;

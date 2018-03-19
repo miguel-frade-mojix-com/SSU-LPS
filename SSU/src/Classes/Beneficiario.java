@@ -13,8 +13,10 @@ import java.util.Date;
  */
 public class Beneficiario extends Datos_Personales{
     
+    
     private String  estadoCivil;
     private Date    fechaAfileacion;
+    private String  matricula;
     private String  Ocupacion;
     private String  primerApellido;
     private String  primerNombre;
@@ -32,6 +34,7 @@ public class Beneficiario extends Datos_Personales{
 
     public Beneficiario(String ciudad,String dir, Date fecha, char gen , String primerNombre, String primerApellido,String segundoNombre, String segundoApellido,Date afiliacion, String tipoSeguro){
         super(ciudad,dir,fecha,gen);   
+
         this.primerNombre=primerNombre;
         this.primerApellido=primerApellido;
         this.segundoNombre=segundoNombre;
@@ -39,6 +42,7 @@ public class Beneficiario extends Datos_Personales{
         this.tipoDeSeguro=tipoSeguro;
         this.fechaAfileacion=afiliacion;
         this.Ocupacion=null;
+        this.matricula= generarMatricula();
     }
 
 
@@ -49,6 +53,9 @@ public class Beneficiario extends Datos_Personales{
     
     public Date getFechaAfiliacion(){return this.fechaAfileacion; }     
     public void setFechaAfiliacion(Date fecha){this.fechaAfileacion=fecha;}
+    
+    public String getMatricula(){return this.matricula;}
+    public void setMatricula(String matricula){this.matricula=matricula;}
     
     public String getOcupacion(){return this.Ocupacion;}
     public void setOcupacion(String ocupacion){this.Ocupacion=ocupacion;}
@@ -70,6 +77,29 @@ public class Beneficiario extends Datos_Personales{
     
     public String getTipoDeSeguro(){return this.tipoDeSeguro;}
     public void setTipoDeSeguro(String tipo){this.tipoDeSeguro=tipo;}  
+    
+    
+    //funciones especiales
+    
+    public String generarMatricula(){
+        StringBuilder sb = new StringBuilder();
+        sb.append( getFechaNacimiento().getYear()   );
+        sb.substring(2);
+        
+        int mes = getFechaNacimiento().getMonth();
+        if(getGenero().compareTo("Femenino")==0)
+            mes+=50;
+        sb.append(mes  );
+        int dia=getFechaNacimiento().getDay();
+        if(dia<10)sb.append("0");
+        sb.append(getFechaNacimiento().getDay());
+        sb.append(getPrimerApellido().charAt(0)  );
+        sb.append(getSegundoApellido().charAt(0));
+        sb.append(getPrimerNombre().charAt(0));
+        
+        return sb.toString();
+    }
+    
     
     
 }

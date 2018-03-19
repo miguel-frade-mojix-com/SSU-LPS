@@ -12,7 +12,7 @@ import java.util.LinkedList;
  *
  * @author Miguel
  */
-public class Empresa {
+public class Institucion {
     
     private String descripcion;
     private Date fechaDeAfiliacion;
@@ -21,7 +21,7 @@ public class Empresa {
     private LinkedList<Beneficiario> Empleados;
     
     
-    public Empresa(String desc,Date fecha,String nombre,boolean valid  ){
+    public Institucion(String desc,Date fecha,String nombre,boolean valid  ){
         this.descripcion=desc;
         this.fechaDeAfiliacion=fecha;
         this.nombre=nombre;

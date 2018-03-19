@@ -22,6 +22,10 @@ public class Datos_Personales {
     private Date fechaNacimiento;
     private int edad;
     private char genero;
+    private int telefonoCelular;
+    private int telefonMovil;
+    private int carnetDeIdentidad;
+    private String ciudadEmision;
 
     //constructores
     

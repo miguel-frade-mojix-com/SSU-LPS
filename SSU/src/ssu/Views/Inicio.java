@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package ssu.Views;
+import Classes.Agenda;
 import Classes.Beneficiario;
 import Classes.Medico;
 import java.util.Date;
@@ -15,13 +16,16 @@ import ssu.Views.Examenes_Laboratorio;
  */
 public class Inicio extends javax.swing.JFrame {
 
+    private Beneficiario BeneficiarioSeleccionado;
+    
+    
     /**
      * Creates new form Home
      */
     public Inicio() {
         initComponents();
         mostrarDatosUsuario();
-        mostrarDatosPaciente();
+        
         mostrarAgendados();
     }
 
@@ -401,6 +405,7 @@ public class Inicio extends javax.swing.JFrame {
 
 
         Consulta consulta = new Consulta();
+        consulta.getDatosPacientes().mostrarDatosPaciente(BeneficiarioSeleccionado);
         consulta.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -450,17 +455,34 @@ public class Inicio extends javax.swing.JFrame {
     
     public void mostrarDatosPaciente(){
         Beneficiario ben = new Beneficiario("La Paz", "Av Kantutani #545", new Date(1984,2,14), 'F', "Jennifer", "Carpio", "Lizeth", "Gonzales", new Date(2008,4,16),"Titular");
+        BeneficiarioSeleccionado=ben;
         datosPaciente1.mostrarDatosPaciente(ben);
     }
     
     
     public void mostrarAgendados(){
-        DefaultTableModel tablaAgenda = (DefaultTableModel) Table_Pacientes.getModel();
+        DefaultTableModel tablaAgenda = (DefaultTableModel) Table_Pacientes.getModel(); 
+        limpiarTabla(tablaAgenda);
         
+        Beneficiario ben = new Beneficiario("La Paz", "Av Kantutani #545", new Date(1984,2,14), 'F', "Jennifer", "Carpio", "Lizeth", "Gonzales", new Date(2008,4,16),"Titular");
+       Beneficiario ben2 = new Beneficiario("La Paz", "Av Illampu #545", new Date(1978,7,04), 'F', "Valeria", "Zamorano", "Juana", "Lazcano", new Date(2012,4,16),"Titular");
+     
         
-        tablaAgenda.addRow(new Object[]{ "16:00","Priscila Ando Aviles","33MD545D",0 });
-        tablaAgenda.addRow(new Object[]{ "16:15","Msnuel Cortez Roca","16454HFS",1 });
+        Agenda ag1=new Agenda(ben, 0, new Date(2018,3,21,16,0)  );
+        Agenda ag2=new Agenda(ben2, 0, new Date(2018,03,21,16,15));
         
+        tablaAgenda.addRow(new Object[]{ag1.getHoraConsulta(),ag1.getNombrePaciente(),ag1.getPaciente().generarMatricula(), ag1.getNumeroConsulta()    });
+        tablaAgenda.addRow(new Object[]{ ag2.getHoraConsulta(),ag2.getNombrePaciente(),ag2.getPaciente().generarMatricula(), ag2.getNumeroConsulta()});
+        
+    
+    }
+    
+    
+    
+    public void limpiarTabla(DefaultTableModel tabla){
+        for(int i= tabla.getRowCount();i>0;i--   ){
+            tabla.removeRow(i);
+        }
     }
     
     
