@@ -15,9 +15,24 @@ import java.sql.*;
 public class DataBaseConnector {
     
     //VAriables to connecto to server 
-    private static final String connection= "jdbc:mysql://localhost:3307/segurosocialuniversitario";
-    private static final String password = "ERINnb2uaUZxvlwh";//ERINnb2uaUZxvlwh
-    private static final String username= "admin";
+    protected static final String connection= "jdbc:mysql://localhost:3307/segurosocialuniversitario";
+    protected static final String password = "ERINnb2uaUZxvlwh";//ERINnb2uaUZxvlwh
+    protected static final String username= "admin";
+    
+    public static boolean coonectDB(){
+        Connection con = null;
+        try {
+            con = DriverManager.getConnection(connection, username,password );
+            System.out.println("Connection executed successfully");
+        }catch(SQLException ex){
+             System.err.println("Failed connection to " + connection + " " + ex.getMessage() ); 
+             return false;
+        }
+                
+        return true;
+    }
+    
+    
     
     private PreparedStatement pst;  
     private ResultSet rs;

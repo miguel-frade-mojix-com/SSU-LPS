@@ -187,9 +187,7 @@ public class Login extends javax.swing.JFrame {
 
     private void PasswordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordFieldKeyPressed
         // TODO add your handling code here:
-        
-        System.out.println("ssu.Views.Login.PasswordFieldKeyPressed()" + evt.getKeyChar() ); 
-        System.out.println(" " + evt.getKeyCode()  );
+
          if(evt.getKeyCode()==10   ){
             verifyUser();
             }

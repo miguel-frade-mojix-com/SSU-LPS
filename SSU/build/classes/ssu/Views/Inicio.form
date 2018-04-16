@@ -35,7 +35,6 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="panel1" max="32767" attributes="0"/>
@@ -47,6 +46,11 @@
                                   <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
                                   <Component id="panel4" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="fechaActual" min="-2" pref="134" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -81,12 +85,15 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <Component id="fechaActual" alignment="1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="datosPaciente1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" pref="13" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" pref="19" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="panel1" min="-2" max="-2" attributes="0"/>
                           <Component id="panel4" min="-2" max="-2" attributes="0"/>
@@ -203,6 +210,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new  javax.swing.JTable();  // Classes.UX.EJTable();//  javax.swing.JTable()"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -585,6 +595,11 @@
     <Component class="java.awt.Label" name="label2">
       <Properties>
         <Property name="text" type="java.lang.String" value="No atendido"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="fechaActual">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel7"/>
       </Properties>
     </Component>
   </SubComponents>

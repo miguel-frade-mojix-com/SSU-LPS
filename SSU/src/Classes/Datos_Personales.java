@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -23,7 +23,7 @@ public class Datos_Personales {
     private int edad;
     private char genero;
     private int telefonoCelular;
-    private int telefonMovil;
+    private int telefonFijo;
     private int carnetDeIdentidad;
     private String ciudadEmision;
 
@@ -35,6 +35,17 @@ public class Datos_Personales {
         this.fechaNacimiento=fecha;
         this.genero=gen;    
         this.edad = calcularEdad();
+    }
+    
+    public Datos_Personales(String ciudad, String dir, Date fechaN, char gen, int celular,int telFijo,int CI,String emisionCI  ){
+        this.ciudad=ciudad;
+        this.direccion=dir;
+        this.fechaNacimiento=fechaN;
+        this.genero=gen;
+        this.telefonoCelular=celular;
+        this.telefonFijo=telFijo;
+        this.carnetDeIdentidad=CI;
+        this.ciudadEmision=emisionCI;
         
     }
     

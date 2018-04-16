@@ -8,6 +8,7 @@ import Classes.Agenda;
 import Classes.Beneficiario;
 import Classes.Medico;
 import java.util.Date;
+import java.util.LinkedList;
 import javax.swing.table.DefaultTableModel;
 import ssu.Views.Examenes_Laboratorio;
 /**
@@ -17,6 +18,7 @@ import ssu.Views.Examenes_Laboratorio;
 public class Inicio extends javax.swing.JFrame {
 
     private Beneficiario BeneficiarioSeleccionado;
+    private Date fechaHoy = new Date();
     
     
     /**
@@ -41,7 +43,7 @@ public class Inicio extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         panel3 = new java.awt.Panel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Table_Pacientes = new javax.swing.JTable();
+        Table_Pacientes = new  javax.swing.JTable();  // Classes.UX.EJTable();//  javax.swing.JTable();
         panel4 = new java.awt.Panel();
         jLabel1 = new javax.swing.JLabel();
         list1 = new java.awt.List();
@@ -66,6 +68,7 @@ public class Inicio extends javax.swing.JFrame {
         panel8 = new java.awt.Panel();
         panel9 = new java.awt.Panel();
         label2 = new java.awt.Label();
+        fechaActual = new javax.swing.JLabel();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -320,6 +323,8 @@ public class Inicio extends javax.swing.JFrame {
 
         label2.setText("No atendido");
 
+        fechaActual.setText("jLabel7");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -329,7 +334,6 @@ public class Inicio extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -338,7 +342,11 @@ public class Inicio extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(panel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(panel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(panel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fechaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(datosPaciente1, javax.swing.GroupLayout.PREFERRED_SIZE, 1188, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 12, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -363,12 +371,14 @@ public class Inicio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(fechaActual, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(datosPaciente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 13, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 19, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(panel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -405,7 +415,7 @@ public class Inicio extends javax.swing.JFrame {
 
 
         Consulta consulta = new Consulta();
-        consulta.getDatosPacientes().mostrarDatosPaciente(BeneficiarioSeleccionado);
+    //    consulta.getDatosPacientes().mostrarDatosPaciente(BeneficiarioSeleccionado);
         consulta.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -464,20 +474,37 @@ public class Inicio extends javax.swing.JFrame {
         DefaultTableModel tablaAgenda = (DefaultTableModel) Table_Pacientes.getModel(); 
         limpiarTabla(tablaAgenda);
         
+        System.out.println( jCalendar1.getDate() );
+        
         Beneficiario ben = new Beneficiario("La Paz", "Av Kantutani #545", new Date(1984,2,14), 'F', "Jennifer", "Carpio", "Lizeth", "Gonzales", new Date(2008,4,16),"Titular");
-       Beneficiario ben2 = new Beneficiario("La Paz", "Av Illampu #545", new Date(1978,7,04), 'F', "Valeria", "Zamorano", "Juana", "Lazcano", new Date(2012,4,16),"Titular");
+        Beneficiario ben2 = new Beneficiario("La Paz", "Av Illampu #545", new Date(1978,7,04), 'F', "Valeria", "Zamorano", "Juana", "Lazcano", new Date(2012,4,16),"Titular");
      
+        LinkedList beneficiarios = new LinkedList();
+        LinkedList agendas= new LinkedList();
         
+        beneficiarios.add(ben);
+        beneficiarios.add(ben2);
+        
+//        for(int i=0;i<beneficiarios.size();i++ ){
+//            agendas.add(new Agenda((Beneficiario)beneficiarios.get(i),(int) 1,new Date(2018,3,21,16,0) )   );
+//        }
         Agenda ag1=new Agenda(ben, 0, new Date(2018,3,21,16,0)  );
-        Agenda ag2=new Agenda(ben2, 0, new Date(2018,03,21,16,15));
+        Agenda ag2=new Agenda(ben2, 1, new Date(2018,03,21,16,15));
         
-        tablaAgenda.addRow(new Object[]{ag1.getHoraConsulta(),ag1.getNombrePaciente(),ag1.getPaciente().generarMatricula(), ag1.getNumeroConsulta()    });
-        tablaAgenda.addRow(new Object[]{ ag2.getHoraConsulta(),ag2.getNombrePaciente(),ag2.getPaciente().generarMatricula(), ag2.getNumeroConsulta()});
+        agendas.add(ag1);
+        agendas.add(ag2);
         
-    
-    }
-    
-    
+        for(int j=0;j<agendas.size();j++ ){
+            Agenda aux =(Agenda) agendas.get(j);
+            tablaAgenda.addRow(new Object[]{aux.getHoraConsulta(),aux.getNombrePaciente(),aux.getPaciente().getMatricula(),aux.getNumeroConsulta()  }   );
+//            if(aux.getNumeroConsulta()>0){
+//                
+//            }
+            
+            
+        }
+
+        }
     
     public void limpiarTabla(DefaultTableModel tabla){
         for(int i= tabla.getRowCount();i>0;i--   ){
@@ -491,6 +518,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JTable Table_Datos_Dr;
     private javax.swing.JTable Table_Pacientes;
     private ssu.Views.DatosPaciente datosPaciente1;
+    private javax.swing.JLabel fechaActual;
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
