@@ -7,8 +7,15 @@ package ssu.Views;
 import Classes.Agenda;
 import Classes.Beneficiario;
 import Classes.Medico;
+import Controllers.AgendaDAO;
 import java.util.Date;
+//import java.sql.Date;
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import ssu.Views.Examenes_Laboratorio;
 /**
@@ -19,7 +26,8 @@ public class Inicio extends javax.swing.JFrame {
 
     private Beneficiario BeneficiarioSeleccionado;
     private Date fechaHoy = new Date();
-    
+    private LinkedList <Agenda> agendados;
+    private DefaultTableModel tablaAgenda;
     
     /**
      * Creates new form Home
@@ -29,6 +37,9 @@ public class Inicio extends javax.swing.JFrame {
         mostrarDatosUsuario();
         
         mostrarAgendados();
+        
+        gerPatientData();
+        
     }
 
     /**
@@ -415,7 +426,7 @@ public class Inicio extends javax.swing.JFrame {
 
 
         Consulta consulta = new Consulta();
-    //    consulta.getDatosPacientes().mostrarDatosPaciente(BeneficiarioSeleccionado);
+        consulta.getDatosPacientes().mostrarDatosPaciente(BeneficiarioSeleccionado);
         consulta.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -463,45 +474,31 @@ public class Inicio extends javax.swing.JFrame {
         model.addRow(new Object[]{ medico.getEspecialidad(),medico.getConsultorio(),medico.getTurno(),medico.getHorarioInicio(),medico.getHorarioSalida()   });
     }
     
-    public void mostrarDatosPaciente(){
+    public void mostrarDatosPaciente( int record){
         Beneficiario ben = new Beneficiario("La Paz", "Av Kantutani #545", new Date(1984,2,14), 'F', "Jennifer", "Carpio", "Lizeth", "Gonzales", new Date(2008,4,16),"Titular");
+       
+       // for(int i=0;i<agendados.size();i++){
+         //   if(agendados.get(i).getNombrePaciente().compareTo(nombre)==0   ){
+                ben=agendados.get(record).getPaciente();
+           //     break;
+           // }
+        //}
+        
         BeneficiarioSeleccionado=ben;
         datosPaciente1.mostrarDatosPaciente(ben);
     }
     
     
     public void mostrarAgendados(){
-        DefaultTableModel tablaAgenda = (DefaultTableModel) Table_Pacientes.getModel(); 
+        tablaAgenda = (DefaultTableModel) Table_Pacientes.getModel(); 
         limpiarTabla(tablaAgenda);
         
-        System.out.println( jCalendar1.getDate() );
+        System.out.println( jCalendar1.getDate() );      
+        agendados=  AgendaDAO.getAgendados(fechaHoy, "Jorge Perez");
         
-        Beneficiario ben = new Beneficiario("La Paz", "Av Kantutani #545", new Date(1984,2,14), 'F', "Jennifer", "Carpio", "Lizeth", "Gonzales", new Date(2008,4,16),"Titular");
-        Beneficiario ben2 = new Beneficiario("La Paz", "Av Illampu #545", new Date(1978,7,04), 'F', "Valeria", "Zamorano", "Juana", "Lazcano", new Date(2012,4,16),"Titular");
-     
-        LinkedList beneficiarios = new LinkedList();
-        LinkedList agendas= new LinkedList();
-        
-        beneficiarios.add(ben);
-        beneficiarios.add(ben2);
-        
-//        for(int i=0;i<beneficiarios.size();i++ ){
-//            agendas.add(new Agenda((Beneficiario)beneficiarios.get(i),(int) 1,new Date(2018,3,21,16,0) )   );
-//        }
-        Agenda ag1=new Agenda(ben, 0, new Date(2018,3,21,16,0)  );
-        Agenda ag2=new Agenda(ben2, 1, new Date(2018,03,21,16,15));
-        
-        agendas.add(ag1);
-        agendas.add(ag2);
-        
-        for(int j=0;j<agendas.size();j++ ){
-            Agenda aux =(Agenda) agendas.get(j);
-            tablaAgenda.addRow(new Object[]{aux.getHoraConsulta(),aux.getNombrePaciente(),aux.getPaciente().getMatricula(),aux.getNumeroConsulta()  }   );
-//            if(aux.getNumeroConsulta()>0){
-//                
-//            }
-            
-            
+        for(int j=0;j<agendados.size();j++ ){
+            Agenda aux =(Agenda) agendados.get(j);
+            tablaAgenda.addRow(new Object[]{aux.getHoraConsulta2(),aux.getNombrePaciente(),aux.getPaciente().getMatricula(),aux.getNumeroConsulta()  }   );
         }
 
         }
@@ -512,6 +509,36 @@ public class Inicio extends javax.swing.JFrame {
         }
     }
     
+    
+    public void gerPatientData(){
+        final ListSelectionModel  model = Table_Pacientes.getSelectionModel();
+        model.addListSelectionListener(new ListSelectionListener(){ 
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(!model.isSelectionEmpty()){
+                    int result = model.getMinSelectionIndex();
+                    mostrarDatosPaciente(result);
+//                    JOptionPane.showMessageDialog(null, "Selected row =  " + result);
+                }   
+         //       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        
+        });
+            
+            
+            
+            
+        
+
+        
+    }
+    
+    public void verFecha(){
+        
+//        ((JTextField)jCalendar1  );
+
+
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

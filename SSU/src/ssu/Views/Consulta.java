@@ -274,6 +274,9 @@ public class Consulta extends javax.swing.JFrame {
 
         SignosVitales signosVitales = new SignosVitales();
         signosVitales.setVisible(true);
+        signosVitales.setPaciente(datosPaciente2.getPaciente() );
+        System.out.println("  " + datosPaciente2.getPaciente().getPrimerNombre() );
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

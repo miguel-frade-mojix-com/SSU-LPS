@@ -16,6 +16,7 @@ public class Beneficiario extends Datos_Personales{
     
     private String  estadoCivil;
     private Date    fechaAfileacion;
+    private String  ID;
     private String  matricula;
     private String  Ocupacion;
     private String  primerApellido;
@@ -45,6 +46,18 @@ public class Beneficiario extends Datos_Personales{
         this.matricula= generarMatricula();
     }
 
+        public Beneficiario(String ciudad,String dir, Date fecha, char gen , String primerNombre, String primerApellido,String segundoNombre, String segundoApellido,Date afiliacion, String tipoSeguro,String id ){
+        super(ciudad,dir,fecha,gen);   
+        this.ID=id;
+        this.primerNombre=primerNombre;
+        this.primerApellido=primerApellido;
+        this.segundoNombre=segundoNombre;
+        this.segundoApellido=segundoApellido;
+        this.tipoDeSeguro=tipoSeguro;
+        this.fechaAfileacion=afiliacion;
+        this.Ocupacion=null;
+        this.matricula= generarMatricula();
+    }
 
     //getters y setters
 
@@ -78,6 +91,8 @@ public class Beneficiario extends Datos_Personales{
     public String getTipoDeSeguro(){return this.tipoDeSeguro;}
     public void setTipoDeSeguro(String tipo){this.tipoDeSeguro=tipo;}  
     
+    public String getID(){return this.ID;}
+    public void setID(String id){this.ID=id;}
     
     //funciones especiales
     

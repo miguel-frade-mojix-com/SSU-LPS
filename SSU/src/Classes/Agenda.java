@@ -16,6 +16,7 @@ public class Agenda {
     private Date            fechaDeAtencion;
     private int             numeroConsulta;    
     private Medico          medico;
+    private int             turno ;
 
     public Agenda(Beneficiario ben,Date fecha,int consulta, Medico medico ){
         this.paciente=ben;
@@ -30,6 +31,13 @@ public class Agenda {
         this.fechaDeAtencion=fecha;
     }
     
+    public Agenda(Beneficiario ben,int consulta,Date fecha,int turno ){
+        this.paciente=ben;
+        this.numeroConsulta=consulta;
+        this.fechaDeAtencion=fecha;
+        this.turno=turno;
+    }
+    
     public Beneficiario getPaciente(){return this.paciente;}
     public void setPaciente(Beneficiario ben){this.paciente=ben;}
     
@@ -41,6 +49,23 @@ public class Agenda {
     
     public Medico getMedico(){return this.medico;}
     public void setMedico(Medico medico){this.medico=medico;}
+    
+
+    
+    public String getHoraConsulta2(){
+        String hora="";
+        
+        hora+= ((turno/4)+8)+":";
+        int modulo=turno%4;
+        
+        if (modulo==1) hora+="00";
+        else if(modulo==2)hora+="15";
+        else if(modulo==3)hora+="30";
+        else hora+="45";
+        
+        
+        return hora;
+    }
     
     public String getHoraConsulta(){
         String minutes =""+fechaDeAtencion.getMinutes() ;

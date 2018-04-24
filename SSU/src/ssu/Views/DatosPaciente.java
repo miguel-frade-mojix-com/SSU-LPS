@@ -13,7 +13,7 @@ import ssu.Views.Examenes_Laboratorio;
  * @author Miguel
  */
 public class DatosPaciente extends javax.swing.JPanel {
-
+    private Beneficiario paciente ;
     /**
      * Creates new form DatosPaciente
      */
@@ -333,6 +333,11 @@ public class DatosPaciente extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    public Beneficiario getPaciente(){
+        return paciente;
+    }
+    
+    
     public void mostrarDatosPaciente(Beneficiario ben){
         nombrePacienteText.setText( ben.getPrimerNombre() + " " + ben.getPrimerApellido() + " " +ben.getSegundoApellido()    );
         DomicilioPacienteText.setText(ben.getDireccion());
@@ -344,7 +349,8 @@ public class DatosPaciente extends javax.swing.JPanel {
         //institucionText.setText();
         
 //        imagenUsuario.setIcon(icon);
-        
+        paciente = ben;
+        System.out.println("Datos Paciente tiene al paciente " + paciente.getPrimerNombre() +" " + paciente.getPrimerApellido() + " id: " + paciente.getID());
     }
     
     

@@ -15,9 +15,12 @@ import java.sql.*;
 public class DataBaseConnector {
     
     //VAriables to connecto to server 
+//    protected static final String connection= "jdbc:mysql://186.121.251.3:3306/mfrade13";
     protected static final String connection= "jdbc:mysql://localhost:3307/segurosocialuniversitario";
-    protected static final String password = "ERINnb2uaUZxvlwh";//ERINnb2uaUZxvlwh
+    
+    protected static final String password ="ERINnb2uaUZxvlwh";//ERINnb2uaUZxvlwh
     protected static final String username= "admin";
+   // protected static Connection con =null;
     
     public static boolean coonectDB(){
         Connection con = null;
@@ -28,7 +31,6 @@ public class DataBaseConnector {
              System.err.println("Failed connection to " + connection + " " + ex.getMessage() ); 
              return false;
         }
-                
         return true;
     }
     
@@ -49,6 +51,7 @@ public class DataBaseConnector {
             pst.setString(2, pass);
             rs=pst.executeQuery();
             
+            
             if( rs.next() ){
                 System.out.println("Welcome user "+   rs.getString("Username"));
                 return true;
@@ -59,6 +62,17 @@ public class DataBaseConnector {
         }catch(SQLException ex){
             System.err.println("Failed connection to " + connection + " " + ex.getMessage() );    
             return false;
+        }finally{
+            try {
+                if(con!=null){
+                    con.close();
+                    System.out.println("Conecction was closed");
+                }
+            }catch(SQLException ex2){
+                System.out.println("Controllers.DataBaseConnector.connect()"+ ex2.getMessage());
+            } 
+            
+            
         }
         
     }
