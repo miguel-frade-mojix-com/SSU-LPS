@@ -15,12 +15,16 @@ import java.sql.*;
 public class DataBaseConnector {
     
     //VAriables to connecto to server 
-//    protected static final String connection= "jdbc:mysql://186.121.251.3:3306/mfrade13";
-    protected static final String connection= "jdbc:mysql://localhost:3307/segurosocialuniversitario";
-    
+    protected static final String connection= "jdbc:mysql://localhost:3307/segurosocialuniversitario";   
     protected static final String password ="ERINnb2uaUZxvlwh";//ERINnb2uaUZxvlwh
     protected static final String username= "admin";
-   // protected static Connection con =null;
+//    
+//    protected static final String connection= "jdbc:mysql://192.168.50.100:3306/mfrade13";
+//    protected static final String username= "mfrade13";
+//    protected static final String password ="Metallic@12";//ERINnb2uaUZxvlwh
+//    
+    
+    
     
     public static boolean coonectDB(){
         Connection con = null;

@@ -67,13 +67,12 @@ public class Datos_Personales {
     private int calcularEdad(){
         Calendar fecha_actual = getCalendar(new Date() );
         Calendar fecha_nacimiento = getCalendar(fechaNacimiento);
-        int fechaNacimiento = fecha_nacimiento.get(1)-1900;
+        int fechaNacimiento = fecha_nacimiento.get(1);
         this.edad = fecha_actual.get(1) - fechaNacimiento;
         System.out.println("Classes.Datos_Personales.calcularEdad()" + fecha_actual.get(1) +"  fechaNacimiento: " + fechaNacimiento);
         if(fecha_actual.get(2)>fecha_nacimiento.get(2) || (fecha_actual.get(2) ==fecha_nacimiento.get(2) && fecha_actual.get(3) > fecha_nacimiento.get(3)) ){
             edad--;
         }
-        
         return edad;  
     }
     

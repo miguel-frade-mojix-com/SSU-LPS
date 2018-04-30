@@ -89,101 +89,140 @@ public class SignosVitales extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SIGNOS VITALES");
 
-        panel1.setBackground(new java.awt.Color(204, 204, 204));
+        panel1.setBackground(new java.awt.Color(204, 204, 255));
         panel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        panel1.setForeground(new java.awt.Color(102, 102, 102));
+        panel1.setForeground(new java.awt.Color(0, 0, 0));
 
+        label1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label1.setForeground(new java.awt.Color(0, 0, 153));
         label1.setText("Presión");
 
+        label2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label2.setForeground(new java.awt.Color(0, 0, 153));
         label2.setText("Pulso");
 
+        txtPresion1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtPresion1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPresion1ActionPerformed(evt);
             }
         });
 
+        txtPresion2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtPresion2.setName(""); // NOI18N
 
+        label3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label3.setForeground(new java.awt.Color(0, 0, 153));
         label3.setText("/");
 
+        txtPulso.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        label4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label4.setForeground(new java.awt.Color(0, 0, 153));
         label4.setText("Talla");
 
+        txtEstatura.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        label5.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label5.setForeground(new java.awt.Color(0, 0, 153));
         label5.setText("Peso");
 
+        txtPeso.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        label6.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label6.setForeground(new java.awt.Color(0, 0, 153));
         label6.setText("min.");
 
+        label7.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label7.setForeground(new java.awt.Color(0, 0, 153));
         label7.setText("cm.");
 
+        label8.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label8.setForeground(new java.awt.Color(0, 0, 153));
         label8.setText("Kg.");
 
+        label9.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label9.setForeground(new java.awt.Color(0, 0, 153));
         label9.setText("Temperatura Oral");
 
+        label10.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label10.setForeground(new java.awt.Color(0, 0, 153));
         label10.setText("Temperatura Axilar");
 
+        label11.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label11.setForeground(new java.awt.Color(0, 0, 153));
         label11.setText("Temperatura Rectal");
 
+        txtTempOral.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        txtTempAxilar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        txtTempRectal.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
         label12.setAlignment(java.awt.Label.RIGHT);
+        label12.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label12.setForeground(new java.awt.Color(0, 0, 153));
         label12.setText("Frecuencia Respiratoria");
 
         label13.setAlignment(java.awt.Label.RIGHT);
+        label13.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label13.setForeground(new java.awt.Color(0, 0, 153));
         label13.setText("Frecuencia Cardiaca");
 
         label14.setAlignment(java.awt.Label.RIGHT);
+        label14.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label14.setForeground(new java.awt.Color(0, 0, 153));
         label14.setText("Indice de Masa Corporal");
 
+        txtFrecResp.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txtFrecResp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 none(evt);
             }
         });
 
+        txtFrecCar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txtFrecCar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFrecCarActionPerformed(evt);
             }
         });
 
+        txtIMC.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txtIMC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIMCActionPerformed(evt);
             }
         });
 
+        label15.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label15.setForeground(new java.awt.Color(0, 0, 153));
         label15.setText("min.");
 
+        label16.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label16.setForeground(new java.awt.Color(0, 0, 153));
         label16.setText("min.");
 
+        label17.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label17.setForeground(new java.awt.Color(0, 0, 153));
         label17.setText("cm./Kg.");
 
+        label18.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label18.setForeground(new java.awt.Color(0, 0, 153));
         label18.setText("C°");
 
+        label19.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label19.setForeground(new java.awt.Color(0, 0, 153));
         label19.setText("C°");
 
+        label20.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label20.setForeground(new java.awt.Color(0, 0, 153));
         label20.setText("C°");
 
+        button1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         button1.setLabel("Modificar");
 
+        button2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         button2.setLabel("Salir");
         button2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -273,7 +312,7 @@ public class SignosVitales extends javax.swing.JFrame {
                                 .addGap(128, 128, 128)
                                 .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,7 +366,7 @@ public class SignosVitales extends javax.swing.JFrame {
                     .addComponent(label14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtIMC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(button1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -357,6 +396,7 @@ public class SignosVitales extends javax.swing.JFrame {
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
+        tablaSignos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tablaSignos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -416,9 +456,9 @@ public class SignosVitales extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(244, 244, 244)
-                        .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(74, 74, 74)
+                        .addGap(193, 193, 193)
+                        .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(43, 43, 43)
                         .addComponent(jButton1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -433,13 +473,13 @@ public class SignosVitales extends javax.swing.JFrame {
                 .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(47, 47, 47))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         pack();

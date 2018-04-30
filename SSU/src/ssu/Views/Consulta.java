@@ -54,6 +54,7 @@ public class Consulta extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         panel4 = new java.awt.Panel();
         jLabel4 = new javax.swing.JLabel();
+        examenesBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +67,11 @@ public class Consulta extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTextArea2);
 
         jButton1.setText("DIAGNOSTICO");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(5);
@@ -101,6 +107,11 @@ public class Consulta extends javax.swing.JFrame {
         });
 
         jButton6.setText("Salir");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         panel1.setBackground(new java.awt.Color(0, 0, 153));
 
@@ -188,6 +199,13 @@ public class Consulta extends javax.swing.JFrame {
                 .addContainerGap(149, Short.MAX_VALUE))
         );
 
+        examenesBtn.setText("Examenes");
+        examenesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                examenesBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -219,7 +237,10 @@ public class Consulta extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(33, 33, 33)
+                                            .addComponent(examenesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,7 +269,9 @@ public class Consulta extends javax.swing.JFrame {
                             .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(examenesBtn))))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -266,6 +289,8 @@ public class Consulta extends javax.swing.JFrame {
                     .addComponent(jButton6))
                 .addGap(29, 29, 29))
         );
+
+        examenesBtn.getAccessibleContext().setAccessibleName("LabButton");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -293,6 +318,28 @@ public class Consulta extends javax.swing.JFrame {
         Expediente_Clinico exp_clinico = new Expediente_Clinico();
         exp_clinico.setVisible(true);        
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Diagnosticos diagnostico = new Diagnosticos();
+        diagnostico.setVisible(true);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    
+    //Evento en el boton para salir de la vista     
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+           this.setVisible(false);
+        
+        
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    //evento para desplegar la vista de examenes de laboratorio
+    private void examenesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_examenesBtnActionPerformed
+        Examenes_Laboratorio examenesView=new Examenes_Laboratorio();
+        examenesView.setVisible(true);
+    }//GEN-LAST:event_examenesBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -334,6 +381,7 @@ public class Consulta extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ssu.Views.DatosPaciente datosPaciente2;
+    private javax.swing.JButton examenesBtn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

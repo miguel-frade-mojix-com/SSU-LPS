@@ -80,6 +80,7 @@ public class Inicio extends javax.swing.JFrame {
         panel9 = new java.awt.Panel();
         label2 = new java.awt.Label();
         fechaActual = new javax.swing.JLabel();
+        verAgendaBtn = new javax.swing.JButton();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -336,6 +337,13 @@ public class Inicio extends javax.swing.JFrame {
 
         fechaActual.setText("jLabel7");
 
+        verAgendaBtn.setText("Ver Agenda");
+        verAgendaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verAgendaBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -353,7 +361,9 @@ public class Inicio extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(panel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(panel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(panel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(verAgendaBtn))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -396,7 +406,9 @@ public class Inicio extends javax.swing.JFrame {
                         .addGap(2, 2, 2)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(verAgendaBtn))
                                 .addGap(8, 8, 8)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -429,6 +441,13 @@ public class Inicio extends javax.swing.JFrame {
         consulta.getDatosPacientes().mostrarDatosPaciente(BeneficiarioSeleccionado);
         consulta.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void verAgendaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verAgendaBtnActionPerformed
+        // TODO add your handling code here:
+        mostrarAgendados();
+        
+        
+    }//GEN-LAST:event_verAgendaBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -492,9 +511,10 @@ public class Inicio extends javax.swing.JFrame {
     public void mostrarAgendados(){
         tablaAgenda = (DefaultTableModel) Table_Pacientes.getModel(); 
         limpiarTabla(tablaAgenda);
+        Date fechaSeleccionada=   jCalendar1.getCalendar().getTime();
+
         
-        System.out.println( jCalendar1.getDate() );      
-        agendados=  AgendaDAO.getAgendados(fechaHoy, "Jorge Perez");
+        agendados=  AgendaDAO.getAgendados(fechaSeleccionada, "Jorge Perez");
         
         for(int j=0;j<agendados.size();j++ ){
             Agenda aux =(Agenda) agendados.get(j);
@@ -504,7 +524,7 @@ public class Inicio extends javax.swing.JFrame {
         }
     
     public void limpiarTabla(DefaultTableModel tabla){
-        for(int i= tabla.getRowCount();i>0;i--   ){
+        for(int i= tabla.getRowCount()-1;i>=0;i--   ){
             tabla.removeRow(i);
         }
     }
@@ -520,8 +540,7 @@ public class Inicio extends javax.swing.JFrame {
                     mostrarDatosPaciente(result);
 //                    JOptionPane.showMessageDialog(null, "Selected row =  " + result);
                 }   
-         //       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
+           }
         
         });
             
@@ -533,11 +552,15 @@ public class Inicio extends javax.swing.JFrame {
         
     }
     
-    public void verFecha(){
+    public void verAgendaFecha(){
         
-//        ((JTextField)jCalendar1  );
 
+        if(jCalendar1.getCalendar()!=null){
+        
+           Date fechaSeleccionada=   jCalendar1.getCalendar().getTime();
 
+           AgendaDAO.getAgendados(fechaSeleccionada,"Jorge Perez" );
+        }
     }
     
 
@@ -571,5 +594,6 @@ public class Inicio extends javax.swing.JFrame {
     private java.awt.Panel panel7;
     private java.awt.Panel panel8;
     private java.awt.Panel panel9;
+    private javax.swing.JButton verAgendaBtn;
     // End of variables declaration//GEN-END:variables
 }

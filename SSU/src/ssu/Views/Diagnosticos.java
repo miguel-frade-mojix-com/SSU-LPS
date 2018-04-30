@@ -5,17 +5,31 @@
  */
 package ssu.Views;
 
+import Classes.Enfermedad;
+import Controllers.CIEDAO;
+import java.util.LinkedList;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Miguel
  */
 public class Diagnosticos extends javax.swing.JFrame {
 
+    private DefaultTableModel tablaEnfermedades; 
+    private LinkedList enfermedades;
+    private Enfermedad enfermedadSeleccionada;
+    private DefaultTableModel tablaDiagnosticadas;
     /**
      * Creates new form Diagnosticos
      */
     public Diagnosticos() {
         initComponents();
+        getEnfermedad();
     }
 
     /**
@@ -27,18 +41,27 @@ public class Diagnosticos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         CIE_TEXTFIELD = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        buscarBtn = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         panel1 = new java.awt.Panel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        desc3Table = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        desc3Table1 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         panel2 = new java.awt.Panel();
+        descripcion4Txt = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         panel3 = new java.awt.Panel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        DIagnosticadas = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -47,6 +70,19 @@ public class Diagnosticos extends javax.swing.JFrame {
         jTextArea2 = new javax.swing.JTextArea();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Diagnóstico CIE");
@@ -61,7 +97,12 @@ public class Diagnosticos extends javax.swing.JFrame {
 
         CIE_TEXTFIELD.setBackground(new java.awt.Color(255, 255, 204));
 
-        jButton1.setText("BUSCAR");
+        buscarBtn.setText("BUSCAR");
+        buscarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarBtnActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("LIMPIAR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -75,17 +116,74 @@ public class Diagnosticos extends javax.swing.JFrame {
 
         panel1.setBackground(new java.awt.Color(255, 255, 204));
 
+        desc3Table.setBackground(new java.awt.Color(255, 255, 204));
+        desc3Table.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        desc3Table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Descripcion"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(desc3Table);
+        if (desc3Table.getColumnModel().getColumnCount() > 0) {
+            desc3Table.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        desc3Table1.setBackground(new java.awt.Color(255, 255, 204));
+        desc3Table1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        desc3Table1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Descripcion"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(desc3Table1);
+        if (desc3Table1.getColumnModel().getColumnCount() > 0) {
+            desc3Table1.getColumnModel().getColumn(0).setResizable(false);
+        }
+
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
         panel1Layout.setHorizontalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 441, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+            .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panel1Layout.createSequentialGroup()
+                    .addGap(10, 10, 10)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panel1Layout.createSequentialGroup()
+                    .addGap(10, 10, 10)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 0, 204));
         jLabel4.setText("Datos Adicionales CIE");
 
@@ -95,27 +193,69 @@ public class Diagnosticos extends javax.swing.JFrame {
         panel2.setLayout(panel2Layout);
         panel2Layout.setHorizontalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 458, Short.MAX_VALUE)
+            .addGroup(panel2Layout.createSequentialGroup()
+                .addComponent(descripcion4Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 29, Short.MAX_VALUE))
         );
         panel2Layout.setVerticalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 131, Short.MAX_VALUE)
+            .addGroup(panel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(descripcion4Txt, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jButton3.setText("Agregar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setForeground(new java.awt.Color(0, 51, 255));
         jLabel5.setText("Datos Inrtroducidos para el Diagnóstico");
+
+        DIagnosticadas.setBackground(new java.awt.Color(255, 255, 204));
+        DIagnosticadas.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        DIagnosticadas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "CIE10", "Descripcion", "Detalle"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(DIagnosticadas);
+        if (DIagnosticadas.getColumnModel().getColumnCount() > 0) {
+            DIagnosticadas.getColumnModel().getColumn(0).setResizable(false);
+        }
 
         javax.swing.GroupLayout panel3Layout = new javax.swing.GroupLayout(panel3);
         panel3.setLayout(panel3Layout);
         panel3Layout.setHorizontalGroup(
             panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1048, Short.MAX_VALUE)
         );
         panel3Layout.setVerticalGroup(
             panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 101, Short.MAX_VALUE)
+            .addGroup(panel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jLabel6.setForeground(new java.awt.Color(0, 0, 204));
@@ -137,6 +277,11 @@ public class Diagnosticos extends javax.swing.JFrame {
         jButton4.setText("Guardar");
 
         jButton5.setText("Salir");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -160,7 +305,7 @@ public class Diagnosticos extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton1)
+                                        .addComponent(buscarBtn)
                                         .addGap(18, 18, 18)
                                         .addComponent(jButton2))
                                     .addComponent(CIE_TEXTFIELD, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -170,7 +315,7 @@ public class Diagnosticos extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5))
-                                .addGap(32, 79, Short.MAX_VALUE)
+                                .addGap(32, 67, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -207,7 +352,7 @@ public class Diagnosticos extends javax.swing.JFrame {
                 .addComponent(CIE_TEXTFIELD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(buscarBtn)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -235,7 +380,7 @@ public class Diagnosticos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -244,9 +389,45 @@ public class Diagnosticos extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         CIE_TEXTFIELD.setText(null);
+        limpiarLista(tablaEnfermedades);
         
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void buscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarBtnActionPerformed
+       
+        String name = CIE_TEXTFIELD.getText();
+       
+        tablaEnfermedades = (DefaultTableModel) desc3Table.getModel();
+        
+         enfermedades= CIEDAO.buscarEnfermedad(name);
+        
+        String[] busquedas= new String[enfermedades.size()] ;
+        for (int i=0;i<enfermedades.size();i++){
+            Enfermedad aux = (Enfermedad) enfermedades.get(i);
+          tablaEnfermedades.addRow(new Object[]{aux.getDescripcion4()   });
+            
+        }
+        
+
+        
+    }//GEN-LAST:event_buscarBtnActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        
+        tablaDiagnosticadas= (DefaultTableModel) DIagnosticadas.getModel();
+        
+        tablaDiagnosticadas.addRow(new Object[]{enfermedadSeleccionada.getCodigo3(),enfermedadSeleccionada.getDescripcion3(),enfermedadSeleccionada.getCodigo4()   });
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -283,9 +464,41 @@ public class Diagnosticos extends javax.swing.JFrame {
         });
     }
 
+    
+    public void limpiarLista(DefaultTableModel tabla){
+         for(int i= tabla.getRowCount()-1;i>=0;i--   ){
+            tabla.removeRow(i);
+        }
+    }
+    
+    public void getEnfermedad(){
+        final ListSelectionModel  model = desc3Table.getSelectionModel();
+        model.addListSelectionListener(new ListSelectionListener(){ 
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(!model.isSelectionEmpty()){
+                    int result = model.getMinSelectionIndex();
+                    enfermedadSeleccionada = (Enfermedad) enfermedades.get(result);
+                    descripcion4Txt.setText(" " + enfermedadSeleccionada.getDescripcion3() );
+//                    JOptionPane.showMessageDialog(null, "Selected row =  " + result);
+                }   
+         //       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        
+        });
+    
+        }
+    
+  
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CIE_TEXTFIELD;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTable DIagnosticadas;
+    private javax.swing.JButton buscarBtn;
+    private javax.swing.JTable desc3Table;
+    private javax.swing.JTable desc3Table1;
+    private javax.swing.JLabel descripcion4Txt;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -299,6 +512,11 @@ public class Diagnosticos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private java.awt.Panel panel1;

@@ -64,6 +64,7 @@ public class DatosPaciente extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(204, 204, 204));
 
+        panel1.setBackground(new java.awt.Color(204, 255, 255));
         panel1.setForeground(new java.awt.Color(102, 102, 102));
 
         panel2.setBackground(new java.awt.Color(255, 255, 204));
@@ -163,35 +164,49 @@ public class DatosPaciente extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 153));
         jLabel4.setText("PACIENTE :");
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 153));
         jLabel1.setText("DOMICILIO :");
         jLabel1.setToolTipText("");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 153));
         jLabel3.setText("FECH. NAC. :");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 153));
         jLabel5.setText("TIPO :");
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 153));
         jLabel6.setText("SEXO :");
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 153));
         jLabel7.setText("EDAD :");
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 153));
         jLabel8.setText("OCUPACIÓN :");
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 153));
         jLabel9.setText("INSTITUCIÓN :");
 
+        nombrePacienteText.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         nombrePacienteText.setText(" ");
+
+        fechaNacPacienteText.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         sexoText.setToolTipText("");
 
+        tipoBeneficiarioText.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        DomicilioPacienteText.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         DomicilioPacienteText.setToolTipText("");
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
