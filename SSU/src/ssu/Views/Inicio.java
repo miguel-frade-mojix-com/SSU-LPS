@@ -542,14 +542,8 @@ public class Inicio extends javax.swing.JFrame {
                 }   
            }
         
-        });
-            
-            
-            
-            
-        
-
-        
+        });     
+   
     }
     
     public void verAgendaFecha(){

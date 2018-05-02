@@ -357,7 +357,15 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 if(!model.isSelectionEmpty()){
                     int result = model.getMinSelectionIndex();
-                    examenDisponible=examenes.get(result);
+                    String res= (String)examenesDisponibles.getValueAt(result, 0);
+                    System.out.println(".valueChanged()" +  res + "  ");
+                    for(int i =0;i<examenes.size();i++){
+                        if(examenes.get(i).getNombre().compareTo(res)==0 ){
+                            examenDisponible=examenes.get(i);
+                            break;
+                        }
+                    }
+                        
                 }   
            }    
         });

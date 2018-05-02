@@ -5,17 +5,33 @@
  */
 package ssu.Views;
 
+import Classes.Medicamento;
+import Controllers.RecetaDAO;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Miguel
  */
 public class PrescripccionMedica extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PrescripccionMedica
-     */
+    LinkedList<Medicamento> medicamentos = new LinkedList<>();
+    DefaultTableModel medicamentosModel ;
+    DefaultTableModel recetaModel ;
+    
+    Medicamento medicamentoSekeccionado;
+    int filaRemovible=0;
+    DetalleMedicamento detalleMed;
+    
     public PrescripccionMedica() {
         initComponents();
+        getMedicamentoRecetaado();
+        getMedicamentoSeleccionado();
     }
 
     /**
@@ -32,22 +48,22 @@ public class PrescripccionMedica extends javax.swing.JFrame {
         label1 = new java.awt.Label();
         panel2 = new java.awt.Panel();
         label2 = new java.awt.Label();
-        textField1 = new java.awt.TextField();
-        button1 = new java.awt.Button();
+        busquedaTxt = new java.awt.TextField();
+        buscarBtn = new java.awt.Button();
         panel3 = new java.awt.Panel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        tablaMedicamentos = new javax.swing.JTable();
+        agregarBtn = new javax.swing.JButton();
         panel4 = new java.awt.Panel();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        quitarBtn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tablaRecetados = new javax.swing.JTable();
         panel5 = new java.awt.Panel();
         jLabel1 = new javax.swing.JLabel();
         textArea1 = new java.awt.TextArea();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        guardarBtn = new javax.swing.JButton();
+        salirBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nueva Prescripción");
@@ -94,16 +110,18 @@ public class PrescripccionMedica extends javax.swing.JFrame {
             .addComponent(label2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        button1.setLabel("BUSCAR");
+        buscarBtn.setLabel("BUSCAR");
+        buscarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarBtnActionPerformed(evt);
+            }
+        });
 
         panel3.setBackground(new java.awt.Color(255, 255, 204));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaMedicamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "CODIGO", "PRODUCTO", "FORMA F.", "CANTIDAD"
@@ -124,7 +142,7 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaMedicamentos);
 
         javax.swing.GroupLayout panel3Layout = new javax.swing.GroupLayout(panel3);
         panel3.setLayout(panel3Layout);
@@ -136,33 +154,40 @@ public class PrescripccionMedica extends javax.swing.JFrame {
             panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel3Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 34, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jButton1.setText("AÑADIR A RECETA");
+        agregarBtn.setText("AÑADIR A RECETA");
+        agregarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarBtnActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("EDITAR");
         jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jButton3.setText("QUITAR");
-        jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        quitarBtn.setText("QUITAR");
+        quitarBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        quitarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quitarBtnActionPerformed(evt);
+            }
+        });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablaRecetados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "ID", "MEDICAMENTO", "CANTIDAD", "DOSIFICACION", "IDFORMAADMI", "FORMA DE ADMINISTRACION", "INDICACION"
+                "ID", "MEDICAMENTO", "CANTIDAD", "DOSIFICACION", "FORMA DE ADMINISTRACION", "INDICACION"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -173,7 +198,10 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        tablaRecetados.setColumnSelectionAllowed(true);
+        tablaRecetados.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tablaRecetados);
+        tablaRecetados.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout panel4Layout = new javax.swing.GroupLayout(panel4);
         panel4.setLayout(panel4Layout);
@@ -183,7 +211,7 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(quitarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(812, Short.MAX_VALUE))
             .addGroup(panel4Layout.createSequentialGroup()
                 .addContainerGap()
@@ -198,7 +226,7 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(quitarBtn))
                 .addContainerGap())
         );
 
@@ -226,9 +254,14 @@ public class PrescripccionMedica extends javax.swing.JFrame {
 
         textArea1.setBackground(new java.awt.Color(255, 255, 204));
 
-        jButton4.setText("GUARDAR RECETA");
+        guardarBtn.setText("GUARDAR RECETA");
 
-        jButton5.setText("CERRAR");
+        salirBtn.setText("CERRAR");
+        salirBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -237,31 +270,29 @@ public class PrescripccionMedica extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(busquedaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(buscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 985, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(433, 433, 433)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(agregarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(panel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(guardarBtn)
                 .addGap(46, 46, 46)
-                .addComponent(jButton5)
+                .addComponent(salirBtn)
                 .addGap(56, 56, 56))
         );
         layout.setVerticalGroup(
@@ -271,12 +302,12 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                    .addComponent(busquedaTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buscarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(agregarBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -285,17 +316,62 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                 .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(guardarBtn)
+                    .addComponent(salirBtn))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void buscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarBtnActionPerformed
+        
+        if(medicamentos.size()>0)medicamentos.clear();
+        
+        medicamentos=RecetaDAO.getMedicamentos(busquedaTxt.getText());
+        limpiarTabla(medicamentosModel);
+        for(Medicamento med : medicamentos){
+            medicamentosModel.addRow(new Object[]{med.getID(),med.getCodigo(),med.getProducto(),med.getFormaFisica(),med.getCantidad()   } );
+        }
+    }//GEN-LAST:event_buscarBtnActionPerformed
+
+    private void quitarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitarBtnActionPerformed
+        
+        if(filaRemovible!=0){
+            tablaRecetados.remove(filaRemovible);
+            filaRemovible=0;
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Seleccione un medicamento de la lista para remover.");
+        }
+        
+    }//GEN-LAST:event_quitarBtnActionPerformed
+
+    private void salirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBtnActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_salirBtnActionPerformed
+
+    private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
+      
+        if(medicamentoSekeccionado!=null){
+            if(detalleMed==null){
+                detalleMed=new DetalleMedicamento();
+            }
+            detalleMed.setPrescripcion(this);
+            detalleMed.fillData(medicamentoSekeccionado);
+            detalleMed.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Seleccione un Medicamento para recetar");
+        }
+        
+    }//GEN-LAST:event_agregarBtnActionPerformed
+
+
+    public void recetarMedicamento(String [] valores){
+        recetaModel.addRow(new Object[]{ medicamentoSekeccionado.getID(),medicamentoSekeccionado.getProducto(),valores[0],valores[1],"1",valores[2],valores[3]  });
+        
+    }
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -327,20 +403,56 @@ public class PrescripccionMedica extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    
+    public void limpiarTabla(DefaultTableModel tabla){
+        for(int i= tabla.getRowCount()-1;i>=0;i--   ){
+            tabla.removeRow(i);
+        }
+    }
+    
+    public void getMedicamentoSeleccionado(){
+        medicamentosModel = (DefaultTableModel) tablaMedicamentos.getModel();
+        final ListSelectionModel  model = tablaMedicamentos.getSelectionModel();
+        model.addListSelectionListener(new ListSelectionListener(){ 
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(!model.isSelectionEmpty()){
+                    int result = model.getMinSelectionIndex();
+                    medicamentoSekeccionado=medicamentos.get(result);
+                   }   
+           }
+        });
+    }
+    public void getMedicamentoRecetaado(){
+        recetaModel = (DefaultTableModel) tablaRecetados.getModel();
+        final ListSelectionModel  model = tablaRecetados.getSelectionModel();
+        model.addListSelectionListener(new ListSelectionListener(){ 
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(!model.isSelectionEmpty()){
+                    filaRemovible = model.getMinSelectionIndex();
+                   }   
+           }
+        });
+    }
 
+    
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button button1;
+    private javax.swing.JButton agregarBtn;
+    private java.awt.Button buscarBtn;
+    private java.awt.TextField busquedaTxt;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton guardarBtn;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private java.awt.Label label1;
     private java.awt.Label label2;
     private java.awt.Panel panel1;
@@ -348,7 +460,10 @@ public class PrescripccionMedica extends javax.swing.JFrame {
     private java.awt.Panel panel3;
     private java.awt.Panel panel4;
     private java.awt.Panel panel5;
+    private javax.swing.JButton quitarBtn;
+    private javax.swing.JButton salirBtn;
+    private javax.swing.JTable tablaMedicamentos;
+    private javax.swing.JTable tablaRecetados;
     private java.awt.TextArea textArea1;
-    private java.awt.TextField textField1;
     // End of variables declaration//GEN-END:variables
 }

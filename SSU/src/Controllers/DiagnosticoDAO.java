@@ -22,17 +22,12 @@ public class DiagnosticoDAO extends DataBaseConnector{
         
         Connection con = null;
         PreparedStatement pst=null;  
-        
         String query = "insert into diagnosticos"  +
                 "()"+
                 "values (?,?,?,?,?,?,);";
-      
         try{
             con=DriverManager.getConnection( connection, username,password );
             pst=con.prepareStatement(query);
-            
-            
- 
             
             pst.executeQuery();
             
