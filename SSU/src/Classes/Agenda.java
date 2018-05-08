@@ -53,17 +53,14 @@ public class Agenda {
 
     
     public String getHoraConsulta2(){
-        String hora="";
-        
+        String hora="";     
         hora+= ((turno/4)+8)+":";
-        int modulo=turno%4;
-        
+        int modulo=turno%4;     
         if (modulo==1) hora+="00";
         else if(modulo==2)hora+="15";
         else if(modulo==3)hora+="30";
         else hora+="45";
-        
-        
+
         return hora;
     }
     

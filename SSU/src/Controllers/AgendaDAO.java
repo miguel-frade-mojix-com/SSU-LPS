@@ -139,24 +139,27 @@ public class AgendaDAO extends DataBaseConnector {
     }
     
     
-    public void agendarPaciente(Beneficiario ben,Date fecha,int turno ){
+    public static void  agendarPaciente(Beneficiario ben,Date fecha,int turno ){
         
         Connection con = null;
         PreparedStatement pst=null;
         String query = "INSERT INTO agenda "
-                +" (`ID_Agenda`, `ID_Beneficiario`, `Fecha_Agendada`, `Numero_Consulta`, `ID_Medico, Turno`)   "
+                +" (`ID_Agenda`, `ID_Beneficiario`, `Fecha_Agendada`, `Numero_Consulta`, `ID_Medico`,`Turno`) "
                 + " values( ?,?,?,?,?,? );";
+        Date now = new Date();
+        Timestamp time = new Timestamp(now.getTime());
         try{
             con=DriverManager.getConnection( connection, username,password );
             pst=con.prepareStatement(query);
-            pst.setString(1, "");
+            pst.setString(1, time.toString());
             pst.setString(2, ben.getID());
-            pst.setString(3, fecha.toString() );
+            pst.setDate(3, new java.sql.Date(fecha.getTime()) );
             pst.setInt(4, 0);
-            pst.setString(5,"");
-            pst.setInt(6,turno);
+            pst.setString(5,DataBaseConnector.getMedico().getID());
+            pst.setString(6,""+turno);
             
-            pst.executeQuery();
+            pst.executeUpdate();
+            
         }catch(SQLException ex){
             System.out.println("Agendar pacientes has failed:  "+ ex.getMessage());
         }finally{

@@ -61,19 +61,18 @@ public class DatosPaciente extends javax.swing.JPanel {
         DomicilioPacienteText = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        userTxt = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
 
-        panel1.setBackground(new java.awt.Color(204, 255, 255));
+        panel1.setBackground(new java.awt.Color(255, 51, 102));
         panel1.setForeground(new java.awt.Color(102, 102, 102));
 
-        panel2.setBackground(new java.awt.Color(255, 255, 204));
+        panel2.setBackground(new java.awt.Color(0, 51, 204));
 
-        jButton2.setForeground(new java.awt.Color(204, 204, 0));
         jButton2.setText("Farmacia");
         jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        jButton3.setForeground(new java.awt.Color(204, 204, 0));
         jButton3.setText("Laboratorio");
         jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -82,24 +81,19 @@ public class DatosPaciente extends javax.swing.JPanel {
             }
         });
 
-        jButton4.setForeground(new java.awt.Color(204, 204, 0));
         jButton4.setText("Imagenologia");
         jButton4.setToolTipText("");
         jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        jButton5.setForeground(new java.awt.Color(204, 204, 0));
         jButton5.setText("Fisioterapia");
         jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        jButton6.setForeground(new java.awt.Color(204, 204, 0));
         jButton6.setText("Referencia");
         jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        jButton7.setForeground(new java.awt.Color(204, 204, 0));
         jButton7.setText("Baja Médica");
         jButton7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        jButton8.setForeground(new java.awt.Color(204, 204, 0));
         jButton8.setText("Interacción");
         jButton8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -108,11 +102,9 @@ public class DatosPaciente extends javax.swing.JPanel {
             }
         });
 
-        jButton9.setForeground(new java.awt.Color(204, 204, 0));
         jButton9.setText("Junta médica");
         jButton9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        jButton10.setForeground(new java.awt.Color(204, 204, 0));
         jButton10.setText("Trab. Soc.");
         jButton10.setToolTipText("");
         jButton10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -196,6 +188,8 @@ public class DatosPaciente extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 153));
         jLabel9.setText("INSTITUCIÓN :");
+
+        imagenUsuario.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\UserIcon.png")); // NOI18N
 
         nombrePacienteText.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         nombrePacienteText.setText(" ");
@@ -311,11 +305,15 @@ public class DatosPaciente extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(140, 140, 140)
                 .addComponent(jLabel2)
+                .addGap(28, 28, 28)
+                .addComponent(userTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(userTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -409,5 +407,6 @@ public class DatosPaciente extends javax.swing.JPanel {
     private java.awt.Panel panel2;
     private javax.swing.JLabel sexoText;
     private javax.swing.JLabel tipoBeneficiarioText;
+    private javax.swing.JLabel userTxt;
     // End of variables declaration//GEN-END:variables
 }

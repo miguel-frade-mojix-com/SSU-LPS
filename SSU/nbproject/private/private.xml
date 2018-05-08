@@ -16,9 +16,10 @@
             <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Classes/Historial_Clinico.java</file>
             <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/ssu/Views/SignosVitales.java</file>
             <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Classes/Agenda.java</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/ssu/Views/Expediente_Clinico.java</file>
             <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/ssu/Views/Consulta.java</file>
             <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Classes/Medico.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/ssu/Views/Agenda.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Controllers/AgendaDAO.java</file>
         </group>
     </open-files>
 </project-private>

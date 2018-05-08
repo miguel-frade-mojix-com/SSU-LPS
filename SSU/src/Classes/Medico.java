@@ -19,11 +19,12 @@ public class Medico extends Datos_Personales{
     private String especialidad;    
     private String horarioInicio;
     private String horarioSalida;
+    private String id;
     private String primerNombre;
     private String segundoNombre;
     private String turno;
         
-    public Medico(String ciudad,String dir, Date fechaNac, char gen,String primerNombre, String segundoNombre, String app,String apm,String consultorio, String correo, String esp,String horaIn, String horaSal ){
+    public Medico(String ciudad,String dir, Date fechaNac, char gen,String primerNombre, String segundoNombre, String app,String apm,String consultorio, String correo, String esp,String horaIn, String horaSal, String id  ){
             super(ciudad,dir,fechaNac,gen );
             this.primerNombre=primerNombre;
             this.apellidoPaterno=app;
@@ -35,6 +36,11 @@ public class Medico extends Datos_Personales{
             this.segundoNombre=segundoNombre;
             this.consultorio=consultorio;
             this.turno=calcularTurno(horaIn);
+            this.id=id;
+    }       
+    
+    public Medico(){
+        super("La Paz","AV 6 de Agosto",new Date(),'M' );
     }
     
     //getters y setters
@@ -60,7 +66,7 @@ public class Medico extends Datos_Personales{
     public String getHorarioSalida(){return this.horarioSalida;}
     public void setHorarioSalida(String salida){this.horarioSalida=salida; }
     
-    public String primerNombre(){return this.primerNombre;}
+    public String getPrimerNombre(){return this.primerNombre;}
     public void setPrimerNombre(String nombre){ this.primerNombre=nombre; }
     
     public String getSegundoNombre(){return this.segundoNombre;}
@@ -68,7 +74,22 @@ public class Medico extends Datos_Personales{
     
     public String getTurno(){return this.turno;}
     public void setTurno(String turn){this.turno=turn;}
+    
+    public String getID(){return this.id;}
+    public void setID(String id){this.id=id; }
+    
+    
+    
     //funciones
+    
+    public String getNombreCompleto(){
+        return ""+primerNombre +" " + apellidoPaterno + " " + apellidoMaterno ;
+    }
+    
+    public int getCalcularTurno(String hora){
+        int val = ((Integer.parseInt(hora)-8) *4) ;
+        return val;
+    }
       
     private String calcularTurno(String hora){
         String turn=null;
@@ -78,9 +99,7 @@ public class Medico extends Datos_Personales{
             turn="TT";
         }else{
             turn="TM";
-        }
-        
-        
+        }    
         return turn;
     }
     

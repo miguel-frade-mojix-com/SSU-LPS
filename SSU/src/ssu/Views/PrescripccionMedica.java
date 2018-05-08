@@ -49,7 +49,6 @@ public class PrescripccionMedica extends javax.swing.JFrame {
         panel2 = new java.awt.Panel();
         label2 = new java.awt.Label();
         busquedaTxt = new java.awt.TextField();
-        buscarBtn = new java.awt.Button();
         panel3 = new java.awt.Panel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaMedicamentos = new javax.swing.JTable();
@@ -64,9 +63,11 @@ public class PrescripccionMedica extends javax.swing.JFrame {
         textArea1 = new java.awt.TextArea();
         guardarBtn = new javax.swing.JButton();
         salirBtn = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Nueva Prescripción");
+        setBackground(new java.awt.Color(255, 153, 51));
 
         panel1.setBackground(new java.awt.Color(51, 0, 153));
 
@@ -91,7 +92,7 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panel2.setBackground(new java.awt.Color(0, 102, 153));
+        panel2.setBackground(new java.awt.Color(0, 51, 153));
 
         label2.setForeground(new java.awt.Color(255, 255, 255));
         label2.setText("MEDICAMENTO");
@@ -110,10 +111,9 @@ public class PrescripccionMedica extends javax.swing.JFrame {
             .addComponent(label2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        buscarBtn.setLabel("BUSCAR");
-        buscarBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarBtnActionPerformed(evt);
+        busquedaTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                busquedaTxtKeyPressed(evt);
             }
         });
 
@@ -163,6 +163,8 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                 agregarBtnActionPerformed(evt);
             }
         });
+
+        panel4.setBackground(new java.awt.Color(204, 255, 204));
 
         jButton2.setText("EDITAR");
         jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -230,7 +232,7 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        panel5.setBackground(new java.awt.Color(0, 102, 153));
+        panel5.setBackground(new java.awt.Color(0, 51, 153));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -252,16 +254,22 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        textArea1.setBackground(new java.awt.Color(255, 255, 204));
+        textArea1.setBackground(new java.awt.Color(255, 255, 153));
 
+        guardarBtn.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\guardar.png")); // NOI18N
         guardarBtn.setText("GUARDAR RECETA");
 
+        salirBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/cancelar.png"))); // NOI18N
         salirBtn.setText("CERRAR");
         salirBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salirBtnActionPerformed(evt);
             }
         });
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\buscar.png")); // NOI18N
+        jButton1.setText("BUSCAR");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -279,7 +287,7 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(busquedaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButton1))
                             .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 985, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(433, 433, 433)
@@ -303,7 +311,9 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(busquedaTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buscarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -324,17 +334,18 @@ public class PrescripccionMedica extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarBtnActionPerformed
+    
+    public void buscarMedicamentos(){
         
         if(medicamentos.size()>0)medicamentos.clear();
-        
         medicamentos=RecetaDAO.getMedicamentos(busquedaTxt.getText());
         limpiarTabla(medicamentosModel);
         for(Medicamento med : medicamentos){
             medicamentosModel.addRow(new Object[]{med.getID(),med.getCodigo(),med.getProducto(),med.getFormaFisica(),med.getCantidad()   } );
         }
-    }//GEN-LAST:event_buscarBtnActionPerformed
-
+    }
+    
+    
     private void quitarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitarBtnActionPerformed
         
         if(filaRemovible!=0){
@@ -358,12 +369,19 @@ public class PrescripccionMedica extends javax.swing.JFrame {
             }
             detalleMed.setPrescripcion(this);
             detalleMed.fillData(medicamentoSekeccionado);
+            detalleMed.setLocation(this.getWidth()/2, this.getHeight()/2);
             detalleMed.setVisible(true);
         }else{
             JOptionPane.showMessageDialog(rootPane, "Seleccione un Medicamento para recetar");
         }
         
     }//GEN-LAST:event_agregarBtnActionPerformed
+
+    private void busquedaTxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_busquedaTxtKeyPressed
+         if(evt.getKeyCode()==10   ){
+             buscarMedicamentos();
+         }
+    }//GEN-LAST:event_busquedaTxtKeyPressed
 
 
     public void recetarMedicamento(String [] valores){
@@ -445,10 +463,10 @@ public class PrescripccionMedica extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarBtn;
-    private java.awt.Button buscarBtn;
     private java.awt.TextField busquedaTxt;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JButton guardarBtn;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -7,7 +7,9 @@ package ssu.Views;
 import Classes.Agenda;
 import Classes.Beneficiario;
 import Classes.Medico;
+import Classes.UX.DimensionConstants;
 import Controllers.AgendaDAO;
+import Controllers.DataBaseConnector;
 import java.util.Date;
 //import java.sql.Date;
 import java.util.LinkedList;
@@ -439,13 +441,13 @@ public class Inicio extends javax.swing.JFrame {
 
         Consulta consulta = new Consulta();
         consulta.getDatosPacientes().mostrarDatosPaciente(BeneficiarioSeleccionado);
+        consulta.setLocation(DimensionConstants.getMaxWidth()/3, DimensionConstants.getMaxHeight()/3);
         consulta.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void verAgendaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verAgendaBtnActionPerformed
         // TODO add your handling code here:
         mostrarAgendados();
-        
         
     }//GEN-LAST:event_verAgendaBtnActionPerformed
 
@@ -488,8 +490,8 @@ public class Inicio extends javax.swing.JFrame {
     public void mostrarDatosUsuario(){
         DefaultTableModel model = (DefaultTableModel) Table_Datos_Dr.getModel();
         
-        Medico medico=new Medico("La Paz", "Av.Strongest", new Date(1984,1,12), 'M', "Manuel", "Jose", "Olave", "Claure","MEOF-13", "manuelolave@.upb.lp.edu", "Medico General", "16:00", "19:00");
-        
+//        Medico medico=new Medico("La Paz", "Av.Strongest", new Date(1984,1,12), 'M', "Manuel", "Jose", "Olave", "Claure","MEOF-13", "manuelolave@.upb.lp.edu", "Medico General", "16:00", "19:00");
+        Medico medico = DataBaseConnector.getMedico();
         model.addRow(new Object[]{ medico.getEspecialidad(),medico.getConsultorio(),medico.getTurno(),medico.getHorarioInicio(),medico.getHorarioSalida()   });
     }
     
