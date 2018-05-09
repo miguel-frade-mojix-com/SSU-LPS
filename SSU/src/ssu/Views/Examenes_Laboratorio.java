@@ -5,6 +5,7 @@
  */
 package ssu.Views;
 
+import Classes.Beneficiario;
 import Classes.Examenes;
 import Controllers.ExamenesDAO;
 import java.util.LinkedList;
@@ -26,6 +27,9 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
     private DefaultTableModel tablaExamenesDisponibles;
     private LinkedList<Examenes> examenes;
     int rowSelected  =0;
+    Beneficiario paciente;
+    Consulta consulta;
+    
     
     /**
      * Creates new form Examenes_Laboratorio
@@ -48,7 +52,7 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
         agregarBtn = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        observacionesTxt = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -67,27 +71,35 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(255, 255, 204));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 204));
         jLabel1.setText("Estudio : ");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 204));
         jLabel2.setText("Obervaciones : ");
 
-        agregarBtn.setText("Agregar");
+        agregarBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        agregarBtn.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\adelante.png")); // NOI18N
+        agregarBtn.setText("AGREGAR");
         agregarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 agregarBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Quitar");
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\atras.png")); // NOI18N
+        jButton2.setText("QUITAR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        observacionesTxt.setColumns(20);
+        observacionesTxt.setRows(5);
+        jScrollPane1.setViewportView(observacionesTxt);
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 204));
         jPanel1.setForeground(new java.awt.Color(0, 0, 204));
@@ -102,9 +114,9 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addGap(114, 114, 114)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,6 +148,7 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        examenesDisponibles.setGridColor(new java.awt.Color(0, 0, 204));
         jScrollPane2.setViewportView(examenesDisponibles);
         if (examenesDisponibles.getColumnModel().getColumnCount() > 0) {
             examenesDisponibles.getColumnModel().getColumn(0).setResizable(false);
@@ -145,17 +158,18 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 57, Short.MAX_VALUE))
+                .addGap(0, 72, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
 
+        examenesSeleccionados.setBackground(new java.awt.Color(255, 255, 204));
         examenesSeleccionados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -179,6 +193,7 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        examenesSeleccionados.setGridColor(new java.awt.Color(0, 51, 204));
         jScrollPane3.setViewportView(examenesSeleccionados);
         if (examenesSeleccionados.getColumnModel().getColumnCount() > 0) {
             examenesSeleccionados.getColumnModel().getColumn(0).setResizable(false);
@@ -188,32 +203,40 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 57, Short.MAX_VALUE))
+                .addGap(0, 72, Short.MAX_VALUE))
         );
 
+        categoriaSelector.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         categoriaSelector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 categoriaSelectorActionPerformed(evt);
             }
         });
 
-        salitBtn.setText("salir");
+        salitBtn.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\cancelar.png")); // NOI18N
+        salitBtn.setText("SALIR");
         salitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salitBtnActionPerformed(evt);
             }
         });
 
-        guardarBtn.setText("Guardar");
+        guardarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/guardar.png"))); // NOI18N
+        guardarBtn.setText("GUARDAR");
+        guardarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarBtnActionPerformed(evt);
+            }
+        });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 51, 255));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 51, 204));
         jLabel4.setText("Seleccionados");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -223,8 +246,11 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 699, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -232,15 +258,15 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
                                 .addGap(32, 32, 32)
                                 .addComponent(categoriaSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(agregarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(agregarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel4)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,8 +301,8 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(48, 48, 48)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(33, 33, 33)
                 .addComponent(jLabel2)
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -308,6 +334,10 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    public void setConsulta(Consulta cons){
+        this.consulta=cons;
+    }
+    
     private void categoriaSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriaSelectorActionPerformed
         tablaExamenesDisponibles = (DefaultTableModel)examenesDisponibles.getModel();
         limpiarLista( tablaExamenesDisponibles );
@@ -335,6 +365,30 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
     private void salitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salitBtnActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_salitBtnActionPerformed
+
+    private void guardarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarBtnActionPerformed
+        int contenidos = tablaExamenesSeleccionados.getRowCount();
+        String codigosExamenes[] = new String[contenidos];
+        
+        StringBuilder sb = new StringBuilder("");
+        sb.append("---------SOLICITUD DE LABORATORIO---------\n");
+        for (int i=0;i<contenidos;i++){
+            String examen =(String)tablaExamenesSeleccionados.getValueAt(i, 0);
+            for(int j=0;j<examenes.size();j++){
+                if(examen.compareTo(examenes.get(j).getNombre())==0){
+                    codigosExamenes[i]=examenes.get(j).getCodigo();
+                }
+            }
+            sb.append(""+(i+1) + ".- "+ examen + " \n");
+        }
+        
+        
+        String detalles = observacionesTxt.getText();
+        
+        ExamenesDAO.agendarExamenes(paciente, detalles, codigosExamenes);
+        consulta.fillPlanExamenes(sb.toString());
+        this.setVisible(false);
+    }//GEN-LAST:event_guardarBtnActionPerformed
 
     
     public void getExamenSeleccionado(){
@@ -387,14 +441,15 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
         }
     }
     
+    public void setBeneficiario(Beneficiario ben){
+        paciente=ben;
+    }
+    
     public void getExamenes(){
         examenes=ExamenesDAO.getExamenes();
         categoriaSelector.addItem("Hematologia");
         categoriaSelector.addItem("Qimica Sanguinea");
-        categoriaSelector.addItem("Bactereologia");
-        
-        //categoriaSelector.addActionListener(this);
-        
+        categoriaSelector.addItem("Bactereologia"); 
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -414,7 +469,7 @@ public class Examenes_Laboratorio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea observacionesTxt;
     private javax.swing.JButton salitBtn;
     // End of variables declaration//GEN-END:variables
 }

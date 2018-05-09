@@ -5,6 +5,7 @@
  */
 package Controllers;
 
+import Classes.Beneficiario;
 import Classes.Enfermedad;
 import Classes.Examenes;
 import static Controllers.DataBaseConnector.connection;
@@ -13,7 +14,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -69,21 +73,41 @@ public class ExamenesDAO extends DataBaseConnector {
     
     
     
-    public static void agendarExamenes(){
-        
+    public static void agendarExamenes(Beneficiario ben, String detalle,String[]examenes ){
+        Date now = new Date();
         Connection con = null;
-        PreparedStatement pst=null;  
+        PreparedStatement pst=null;        
+        PreparedStatement pst2=null;
+        String query= "insert into orden_laboratorio (ID_Orden_Laboratorio,ID_Beneficiario,ID_Laboratorio,Detalle,Fecha_Agendada) "+
+                "values(?,?,?,?,?)";
         
-        String query= "insert into orden_laboratorio";
+        String query2 = "insert into detalle_examenes_laboratorio"+
+                 "(ID_Orden_Laboratorio,ID_Estudio_Examen,Resultado_Examen )"+
+                "values ";
+        Timestamp timeStamp = new Timestamp(now.getTime() );
+        String emptyResult="";
+        for(int i=0;i<examenes.length;i++){
+            query2+="('"+timeStamp.toString()+"','"+examenes[i]  +"','"+emptyResult+"')";
+            if(i==examenes.length-1)query2+=";";
+            else query2+=",";
+        }            
         
+        System.out.println(query2);
         
         try{
             con = DriverManager.getConnection(connection, username, password);
             
             pst= con.prepareStatement(query);
+            pst.setString(1, timeStamp.toString());
+            pst.setString(2, ben.getID());
+            pst.setString(3, "L1");
+            pst.setString(4,detalle);
+            pst.setDate(5,new java.sql.Date(now.getTime()) );
             
-            pst.executeQuery();
-            
+            pst.executeUpdate();
+            pst2=con.prepareStatement(query2);
+            pst2.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Se ha agendado los examenes para laboratorio con exito");
             
         }catch(SQLException ex){
             System.out.println("Controllers.ExamenesDAO.agendarExamenes()" + ex.getMessage());
@@ -92,5 +116,9 @@ public class ExamenesDAO extends DataBaseConnector {
         
     }
     
+    
+    public void saveExamenes(){
+        
+    }
     
 }

@@ -87,6 +87,8 @@ public class Inicio extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CONSULTA EXTERNA");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         panel3.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -441,7 +443,7 @@ public class Inicio extends javax.swing.JFrame {
 
         Consulta consulta = new Consulta();
         consulta.getDatosPacientes().mostrarDatosPaciente(BeneficiarioSeleccionado);
-        consulta.setLocation(DimensionConstants.getMaxWidth()/3, DimensionConstants.getMaxHeight()/3);
+        consulta.setLocation(this.getLocation().x/4, this.getLocation().y/4);
         consulta.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 

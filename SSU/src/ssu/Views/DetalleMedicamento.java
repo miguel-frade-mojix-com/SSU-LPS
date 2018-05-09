@@ -352,11 +352,12 @@ public class DetalleMedicamento extends javax.swing.JFrame {
     public void fillData(Medicamento med){
         medicamento=med;
         productoTxt.setText(med.getProducto());
+       
         formaFisicaTxt.setText(medicamento.getFormaFisica());
         cantidadSpinner.setValue(0);
         dosificacionField.setText("");
         indicacionField.setText("");
-        formaAdministracionField.removeAll();
+        formaAdministracionField.removeAllItems();
         formaAdministracionField.addItem(med.getFotmaAdministracion());
         
     }

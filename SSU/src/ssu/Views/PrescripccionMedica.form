@@ -53,7 +53,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="textArea1" alignment="0" min="-2" pref="985" max="-2" attributes="0"/>
+                          <Component id="observacionesField" alignment="0" min="-2" pref="985" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="433" max="-2" attributes="0"/>
                               <Component id="agregarBtn" min="-2" pref="169" max="-2" attributes="0"/>
@@ -97,7 +97,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="textArea1" min="-2" max="-2" attributes="0"/>
+              <Component id="observacionesField" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="guardarBtn" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -185,6 +185,11 @@
       </SubComponents>
     </Container>
     <Component class="java.awt.TextField" name="busquedaTxt">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="14" style="0"/>
+        </Property>
+      </Properties>
       <Events>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="busquedaTxtKeyPressed"/>
       </Events>
@@ -270,6 +275,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="agregarBtn">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\gitRepos\TESIS\SSU-LPS\SSU\src\Resources\agregar.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="A&#xd1;ADIR A RECETA"/>
       </Properties>
       <Events>
@@ -279,7 +287,7 @@
     <Container class="java.awt.Panel" name="panel4">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="ff" red="cc" type="rgb"/>
+          <Color blue="ff" green="99" red="99" type="rgb"/>
         </Property>
       </Properties>
 
@@ -440,7 +448,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="java.awt.TextArea" name="textArea1">
+    <Component class="java.awt.TextArea" name="observacionesField">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="99" green="ff" red="ff" type="rgb"/>
@@ -454,6 +462,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="GUARDAR RECETA"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="guardarBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="salirBtn">
       <Properties>

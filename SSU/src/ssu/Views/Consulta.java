@@ -17,9 +17,14 @@ public class Consulta extends javax.swing.JFrame {
 
  
       PrescripccionMedica vistaReceta;
-      Examenes_Laboratorio examenes;
+      Examenes_Laboratorio examenesView;
       Agenda agenda;
       SignosVitales signosVitales;
+      Diagnosticos diagnosticoView;
+      
+      StringBuilder diagnostico;
+      StringBuilder laboratorios;
+      StringBuilder receta;
     
     public Consulta() {
         initComponents();
@@ -41,11 +46,11 @@ public class Consulta extends javax.swing.JFrame {
         jTextArea2 = new javax.swing.JTextArea();
         diagnosticoBtn = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        analiticoTxt = new javax.swing.JTextArea();
         signosVitalesBtn = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        expedienteBtn = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
+        planField = new javax.swing.JTextArea();
         jButton4 = new javax.swing.JButton();
         imprimirBtn = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -80,9 +85,9 @@ public class Consulta extends javax.swing.JFrame {
             }
         });
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jScrollPane3.setViewportView(jTextArea3);
+        analiticoTxt.setColumns(20);
+        analiticoTxt.setRows(5);
+        jScrollPane3.setViewportView(analiticoTxt);
 
         signosVitalesBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         signosVitalesBtn.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\signosVitales.png")); // NOI18N
@@ -96,19 +101,19 @@ public class Consulta extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\expedienteClinico.png")); // NOI18N
-        jButton3.setText("EXPEDIENTE CLINICO");
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        expedienteBtn.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\expedienteClinico.png")); // NOI18N
+        expedienteBtn.setText("EXPEDIENTE CLINICO");
+        expedienteBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        expedienteBtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        expedienteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                expedienteBtnActionPerformed(evt);
             }
         });
 
-        jTextArea4.setColumns(20);
-        jTextArea4.setRows(5);
-        jScrollPane4.setViewportView(jTextArea4);
+        planField.setColumns(20);
+        planField.setRows(5);
+        jScrollPane4.setViewportView(planField);
 
         jButton4.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\editar.png")); // NOI18N
         jButton4.setText("MODIFICAR CONSULTA");
@@ -264,7 +269,7 @@ public class Consulta extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(42, 42, 42)))
-                        .addContainerGap())
+                        .addGap(13, 13, 13))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(panel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -287,7 +292,7 @@ public class Consulta extends javax.swing.JFrame {
                                                 .addComponent(recetaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(expedienteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(signosVitalesBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
@@ -323,7 +328,7 @@ public class Consulta extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(signosVitalesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(expedienteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -371,16 +376,17 @@ public class Consulta extends javax.swing.JFrame {
         
     }//GEN-LAST:event_imprimirBtnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void expedienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expedienteBtnActionPerformed
         // TODO add your handling code here:
         Expediente_Clinico exp_clinico = new Expediente_Clinico();
         exp_clinico.setVisible(true);        
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_expedienteBtnActionPerformed
 
     private void diagnosticoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diagnosticoBtnActionPerformed
-        // TODO add your handling code here:
-        Diagnosticos diagnostico = new Diagnosticos();
-        diagnostico.setVisible(true);
+       if(diagnosticoView==null)
+            diagnosticoView = new Diagnosticos();
+        diagnosticoView.setVisible(true);
+        diagnosticoView.setConsulta(this);
         
     }//GEN-LAST:event_diagnosticoBtnActionPerformed
 
@@ -388,15 +394,28 @@ public class Consulta extends javax.swing.JFrame {
     //Evento en el boton para salir de la vista     
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
            this.setVisible(false);
-        
-        
-        
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    
+    public void fillDiagnostico(String diagnostico){
+        this.diagnostico=new StringBuilder( diagnostico);
+        analiticoTxt.append(diagnostico);
+    }
+    
+    public void fillPlanReceta(String recetas){
+            planField.append(recetas);
+    }
+    public void fillPlanExamenes(String examenes){
+            planField.append(examenes);
+    }
     //evento para desplegar la vista de examenes de laboratorio
     private void examenesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_examenesBtnActionPerformed
-        Examenes_Laboratorio examenesView=new Examenes_Laboratorio();
+        if(examenesView==null)
+            examenesView=new Examenes_Laboratorio();
         examenesView.setVisible(true);
+        examenesView.setConsulta(this);
+        examenesView.setBeneficiario(datosPaciente2.getPaciente());
     }//GEN-LAST:event_examenesBtnActionPerformed
 
     private void recetaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recetaBtnActionPerformed
@@ -405,6 +424,9 @@ public class Consulta extends javax.swing.JFrame {
             vistaReceta = new PrescripccionMedica();  
        }
         vistaReceta.setVisible(true);
+        vistaReceta.setConsulta(this);
+        vistaReceta.limpiarVista();
+        vistaReceta.setPaciente(datosPaciente2.getPaciente());
         
     }//GEN-LAST:event_recetaBtnActionPerformed
 
@@ -454,16 +476,19 @@ public class Consulta extends javax.swing.JFrame {
         });
     }
 
+    
+    
     public DatosPaciente getDatosPacientes(){return this.datosPaciente2;}
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agendarBtn;
+    private javax.swing.JTextArea analiticoTxt;
     private ssu.Views.DatosPaciente datosPaciente2;
     private javax.swing.JButton diagnosticoBtn;
     private javax.swing.JButton examenesBtn;
+    private javax.swing.JButton expedienteBtn;
     private javax.swing.JButton imprimirBtn;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
@@ -476,12 +501,11 @@ public class Consulta extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextArea jTextArea4;
     private java.awt.Panel panel1;
     private java.awt.Panel panel2;
     private java.awt.Panel panel3;
     private java.awt.Panel panel4;
+    private javax.swing.JTextArea planField;
     private javax.swing.JButton recetaBtn;
     private javax.swing.JButton signosVitalesBtn;
     // End of variables declaration//GEN-END:variables

@@ -5,6 +5,7 @@
  */
 package ssu.Views;
 
+import Classes.Beneficiario;
 import Classes.Medicamento;
 import Controllers.RecetaDAO;
 import java.util.LinkedList;
@@ -23,10 +24,13 @@ public class PrescripccionMedica extends javax.swing.JFrame {
     LinkedList<Medicamento> medicamentos = new LinkedList<>();
     DefaultTableModel medicamentosModel ;
     DefaultTableModel recetaModel ;
-    
+    Beneficiario ben;
     Medicamento medicamentoSekeccionado;
     int filaRemovible=0;
     DetalleMedicamento detalleMed;
+    LinkedList<Medicamento> medicamentosRecetados = new LinkedList();
+    
+    Consulta consulta;
     
     public PrescripccionMedica() {
         initComponents();
@@ -60,7 +64,7 @@ public class PrescripccionMedica extends javax.swing.JFrame {
         tablaRecetados = new javax.swing.JTable();
         panel5 = new java.awt.Panel();
         jLabel1 = new javax.swing.JLabel();
-        textArea1 = new java.awt.TextArea();
+        observacionesField = new java.awt.TextArea();
         guardarBtn = new javax.swing.JButton();
         salirBtn = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -111,6 +115,7 @@ public class PrescripccionMedica extends javax.swing.JFrame {
             .addComponent(label2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        busquedaTxt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         busquedaTxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 busquedaTxtKeyPressed(evt);
@@ -157,6 +162,7 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        agregarBtn.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\agregar.png")); // NOI18N
         agregarBtn.setText("AÑADIR A RECETA");
         agregarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,7 +170,7 @@ public class PrescripccionMedica extends javax.swing.JFrame {
             }
         });
 
-        panel4.setBackground(new java.awt.Color(204, 255, 204));
+        panel4.setBackground(new java.awt.Color(153, 153, 255));
 
         jButton2.setText("EDITAR");
         jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -254,10 +260,15 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        textArea1.setBackground(new java.awt.Color(255, 255, 153));
+        observacionesField.setBackground(new java.awt.Color(255, 255, 153));
 
         guardarBtn.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\guardar.png")); // NOI18N
         guardarBtn.setText("GUARDAR RECETA");
+        guardarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarBtnActionPerformed(evt);
+            }
+        });
 
         salirBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/cancelar.png"))); // NOI18N
         salirBtn.setText("CERRAR");
@@ -288,7 +299,7 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                                 .addComponent(busquedaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1))
-                            .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 985, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(observacionesField, javax.swing.GroupLayout.PREFERRED_SIZE, 985, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(433, 433, 433)
                                 .addComponent(agregarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -323,7 +334,7 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(observacionesField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(guardarBtn)
@@ -334,6 +345,9 @@ public class PrescripccionMedica extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setConsulta(Consulta cons){
+        this.consulta = cons;
+    }
     
     public void buscarMedicamentos(){
         
@@ -383,10 +397,39 @@ public class PrescripccionMedica extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_busquedaTxtKeyPressed
 
+    private void guardarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarBtnActionPerformed
+        
+        int recetados= recetaModel.getRowCount();
+        int cantidades[]=new int [recetados];
+        int dosificaciones[]=new int [recetados];
+        String indicaciones[] = new String[recetados];
+        String medicamentos[] = new String[recetados];
+        StringBuilder sb = new StringBuilder();
+        sb.append("--------SOLICITUD DE FARMACIA ------\n");
+        for(int i=0;i<recetados;i++){
+           medicamentos[i]=(String) recetaModel.getValueAt(i, 0);
+           cantidades[i]= Integer.parseInt((String) recetaModel.getValueAt(i, 2)) ;
+           dosificaciones[i]=Integer.parseInt( (String) recetaModel.getValueAt(i, 3) ) ;
+           indicaciones[i]=(String) recetaModel.getValueAt(i, 5);
+           sb.append( "" + (i+1) + ".- " +recetaModel.getValueAt(i, 1) + " Cant.: " + cantidades[i] + " Indicacion: " + indicaciones[i] + " \n"  );
+        }
+        
+        
+        consulta.fillPlanReceta(sb.toString());
+        
+        RecetaDAO.recetarMedicamentos(ben, medicamentos, cantidades, dosificaciones, indicaciones);
+        this.setVisible(false);
+    }//GEN-LAST:event_guardarBtnActionPerformed
+
 
     public void recetarMedicamento(String [] valores){
-        recetaModel.addRow(new Object[]{ medicamentoSekeccionado.getID(),medicamentoSekeccionado.getProducto(),valores[0],valores[1],"1",valores[2],valores[3]  });
+        medicamentosRecetados.add(medicamentoSekeccionado);
+        recetaModel.addRow(new Object[]{ medicamentoSekeccionado.getID(),medicamentoSekeccionado.getProducto(),valores[0],valores[1],valores[2],valores[3]  });
         
+    }
+    
+    public void setPaciente(Beneficiario paciente){
+        ben=paciente;
     }
     
     
@@ -423,6 +466,11 @@ public class PrescripccionMedica extends javax.swing.JFrame {
     }
     
     
+    public void limpiarVista(){
+        limpiarTabla(recetaModel);
+        limpiarTabla(medicamentosModel);
+        observacionesField.setText("");
+    }
     
     public void limpiarTabla(DefaultTableModel tabla){
         for(int i= tabla.getRowCount()-1;i>=0;i--   ){
@@ -473,6 +521,7 @@ public class PrescripccionMedica extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private java.awt.Label label1;
     private java.awt.Label label2;
+    private java.awt.TextArea observacionesField;
     private java.awt.Panel panel1;
     private java.awt.Panel panel2;
     private java.awt.Panel panel3;
@@ -482,6 +531,5 @@ public class PrescripccionMedica extends javax.swing.JFrame {
     private javax.swing.JButton salirBtn;
     private javax.swing.JTable tablaMedicamentos;
     private javax.swing.JTable tablaRecetados;
-    private java.awt.TextArea textArea1;
     // End of variables declaration//GEN-END:variables
 }

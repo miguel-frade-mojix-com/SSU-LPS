@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import Classes.Enfermedad;
+import java.util.Date;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Miguel
@@ -53,26 +55,57 @@ public class CIEDAO extends DataBaseConnector{
                    con.close();
            }catch(SQLException exe){
                System.out.println("Connection couldnot close: " + exe.getMessage());
-           }
-            
+           }   
            try{
                if(pst!=null){
                    pst.close();
                }
            }catch(SQLException exe2){
                System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
-           }
-            
-            
-            
-        }     
-        
-        
+           }   
+        }
         
         return enfermedades;
     }
     
-    
+    public static void registrarEnfermedad(String beneficiarioId, String enfermedades[]  ){
+        Connection con = null;
+        PreparedStatement pst=null;  
+        ResultSet rs= null;
+        Date hoy = new Date();
+        
+        String query = "insert into Indice_De_Enfermedades (ID_Beneficiario, Enfermedad, Fecha_Registrada)values ";
+        
+        for (int i = 0;i<enfermedades.length;i++){
+            query+="('" + beneficiarioId + "'," + enfermedades[i] + "'," +  new java.sql.Date(hoy.getTime()).toString() + ")";
+            if(i==enfermedades.length-1) query+=";";
+            else query+=",";
+        }
+        try{
+            con=DriverManager.getConnection( connection, username,password );
+            pst=con.prepareStatement(query);
+            pst.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Diagnostico de enfermedad registrado exitosamente.");
+        }catch(SQLException ex){
+            System.out.println("Agendar pacientes has failed:  "+ ex.getMessage());
+        }finally{
+               try{
+               if(con!=null)
+                   con.close();
+           }catch(SQLException exe){
+               System.out.println("Connection couldnot close: " + exe.getMessage());
+           }   
+           try{
+               if(pst!=null){
+                   pst.close();
+               }
+           }catch(SQLException exe2){
+               System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
+           }   
+        }
+        
+    }
     
     
     

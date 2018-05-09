@@ -24,12 +24,17 @@ public class Diagnosticos extends javax.swing.JFrame {
     private LinkedList enfermedades;
     private Enfermedad enfermedadSeleccionada;
     private DefaultTableModel tablaDiagnosticadas;
+    private Consulta consulta;
+    
+    
     /**
      * Creates new form Diagnosticos
      */
     public Diagnosticos() {
         initComponents();
         getEnfermedad();
+        tablaEnfermedades = (DefaultTableModel) desc3Table.getModel();
+        tablaDiagnosticadas= (DefaultTableModel) DIagnosticadas.getModel();
     }
 
     /**
@@ -47,7 +52,7 @@ public class Diagnosticos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         CIE_TEXTFIELD = new javax.swing.JTextField();
         buscarBtn = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        limpiarBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         panel1 = new java.awt.Panel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -57,19 +62,19 @@ public class Diagnosticos extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         panel2 = new java.awt.Panel();
         descripcion4Txt = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        agregarBtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         panel3 = new java.awt.Panel();
         jScrollPane6 = new javax.swing.JScrollPane();
         DIagnosticadas = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        observacionesField = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        impresonField = new javax.swing.JTextArea();
+        guardarBtn = new javax.swing.JButton();
+        salirBtn = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -96,7 +101,13 @@ public class Diagnosticos extends javax.swing.JFrame {
         jLabel2.setText("Descripción o Código cie 10");
 
         CIE_TEXTFIELD.setBackground(new java.awt.Color(255, 255, 204));
+        CIE_TEXTFIELD.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CIE_TEXTFIELDKeyPressed(evt);
+            }
+        });
 
+        buscarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buscar.png"))); // NOI18N
         buscarBtn.setText("BUSCAR");
         buscarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,10 +115,11 @@ public class Diagnosticos extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("LIMPIAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        limpiarBtn.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\limpiar.png")); // NOI18N
+        limpiarBtn.setText("LIMPIAR");
+        limpiarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                limpiarBtnActionPerformed(evt);
             }
         });
 
@@ -205,10 +217,11 @@ public class Diagnosticos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton3.setText("Agregar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        agregarBtn.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\agregar.png")); // NOI18N
+        agregarBtn.setText("AGREGAR");
+        agregarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                agregarBtnActionPerformed(evt);
             }
         });
 
@@ -249,7 +262,7 @@ public class Diagnosticos extends javax.swing.JFrame {
         panel3.setLayout(panel3Layout);
         panel3Layout.setHorizontalGroup(
             panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1048, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1042, Short.MAX_VALUE)
         );
         panel3Layout.setVerticalGroup(
             panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,25 +274,32 @@ public class Diagnosticos extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(0, 0, 204));
         jLabel6.setText("Impresión Diagnóstico");
 
-        jTextArea1.setBackground(new java.awt.Color(255, 255, 204));
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        observacionesField.setBackground(new java.awt.Color(255, 255, 204));
+        observacionesField.setColumns(20);
+        observacionesField.setRows(5);
+        jScrollPane1.setViewportView(observacionesField);
 
         jLabel7.setForeground(new java.awt.Color(51, 0, 204));
         jLabel7.setText("Observacions");
 
-        jTextArea2.setBackground(new java.awt.Color(255, 255, 204));
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        impresonField.setBackground(new java.awt.Color(255, 255, 204));
+        impresonField.setColumns(20);
+        impresonField.setRows(5);
+        jScrollPane2.setViewportView(impresonField);
 
-        jButton4.setText("Guardar");
-
-        jButton5.setText("Salir");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        guardarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/guardar.png"))); // NOI18N
+        guardarBtn.setText("GUARDAR");
+        guardarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                guardarBtnActionPerformed(evt);
+            }
+        });
+
+        salirBtn.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\cancelar.png")); // NOI18N
+        salirBtn.setText("SALIR");
+        salirBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirBtnActionPerformed(evt);
             }
         });
 
@@ -289,7 +309,7 @@ public class Diagnosticos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addComponent(jButton3)
+                .addComponent(agregarBtn)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -307,7 +327,7 @@ public class Diagnosticos extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(buscarBtn)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jButton2))
+                                        .addComponent(limpiarBtn))
                                     .addComponent(CIE_TEXTFIELD, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -315,7 +335,7 @@ public class Diagnosticos extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5))
-                                .addGap(32, 67, Short.MAX_VALUE)
+                                .addGap(32, 61, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -336,9 +356,9 @@ public class Diagnosticos extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(370, 370, 370)
-                .addComponent(jButton4)
+                .addComponent(guardarBtn)
                 .addGap(77, 77, 77)
-                .addComponent(jButton5)
+                .addComponent(salirBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -353,7 +373,7 @@ public class Diagnosticos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buscarBtn)
-                    .addComponent(jButton2))
+                    .addComponent(limpiarBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -363,7 +383,7 @@ public class Diagnosticos extends javax.swing.JFrame {
                     .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(agregarBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -378,56 +398,71 @@ public class Diagnosticos extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(guardarBtn)
+                    .addComponent(salirBtn))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void limpiarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarBtnActionPerformed
         // TODO add your handling code here:
         CIE_TEXTFIELD.setText(null);
         limpiarLista(tablaEnfermedades);
         
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_limpiarBtnActionPerformed
 
     private void buscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarBtnActionPerformed
-       
-        String name = CIE_TEXTFIELD.getText();
-       
-        tablaEnfermedades = (DefaultTableModel) desc3Table.getModel();
-        
-         enfermedades= CIEDAO.buscarEnfermedad(name);
-        
-        String[] busquedas= new String[enfermedades.size()] ;
-        for (int i=0;i<enfermedades.size();i++){
-            Enfermedad aux = (Enfermedad) enfermedades.get(i);
-          tablaEnfermedades.addRow(new Object[]{aux.getDescripcion4()   });
-            
-        }
-        
-
-        
+       buscar();
     }//GEN-LAST:event_buscarBtnActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+    public void buscar(){
+        String name = CIE_TEXTFIELD.getText();
+        enfermedades= CIEDAO.buscarEnfermedad(name);
         
+        String[] busquedas= new String[enfermedades.size()] ;
+        limpiarLista(tablaEnfermedades);
+        for (int i=0;i<enfermedades.size();i++){
+            Enfermedad aux = (Enfermedad) enfermedades.get(i);
+           tablaEnfermedades.addRow(new Object[]{aux.getDescripcion4()   });   
+        }
+    }
+    
+    
+    private void salirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBtnActionPerformed
+       this.setVisible(false);
+    }//GEN-LAST:event_salirBtnActionPerformed
+
+    private void agregarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBtnActionPerformed
+        // TODO add your handling code here:
+        tablaDiagnosticadas.addRow(new Object[]{enfermedadSeleccionada.getCodigo3(),enfermedadSeleccionada.getDescripcion3(),enfermedadSeleccionada.getCodigo4()   });
+    }//GEN-LAST:event_agregarBtnActionPerformed
+
+    private void CIE_TEXTFIELDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CIE_TEXTFIELDKeyPressed
+        
+        if(evt.getKeyCode()==10   ){
+            buscar();
+        } 
+        
+    }//GEN-LAST:event_CIE_TEXTFIELDKeyPressed
+
+    private void guardarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarBtnActionPerformed
+        StringBuilder sb = new StringBuilder("");
+        
+        sb.append(impresonField.getText() + "\n");
+        int diagnosticos= tablaDiagnosticadas.getRowCount();
+        String enfermedades[] =new String[diagnosticos];
+        for(int i =0;i<diagnosticos;i++){
+            sb.append("" + (i+1) + ".- paciente diagnosticado con:" + tablaDiagnosticadas.getValueAt(i, 1) +".\n"   );
+            enfermedades[i]=(String) tablaDiagnosticadas.getValueAt(i, 1);
+        }
+    //    CIEDAO.registrarEnfermedad(consulta.getDatosPacientes().getPaciente().getID() , enfermedades);
+        consulta.fillDiagnostico(sb.toString());
         this.setVisible(false);
         
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        
-        tablaDiagnosticadas= (DefaultTableModel) DIagnosticadas.getModel();
-        
-        tablaDiagnosticadas.addRow(new Object[]{enfermedadSeleccionada.getCodigo3(),enfermedadSeleccionada.getDescripcion3(),enfermedadSeleccionada.getCodigo4()   });
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_guardarBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -489,20 +524,22 @@ public class Diagnosticos extends javax.swing.JFrame {
     
         }
     
-  
+    public void setConsulta(Consulta cons){
+        consulta=cons;
+    }
+    
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CIE_TEXTFIELD;
     private javax.swing.JTable DIagnosticadas;
+    private javax.swing.JButton agregarBtn;
     private javax.swing.JButton buscarBtn;
     private javax.swing.JTable desc3Table;
     private javax.swing.JTable desc3Table1;
     private javax.swing.JLabel descripcion4Txt;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton guardarBtn;
+    private javax.swing.JTextArea impresonField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -517,10 +554,11 @@ public class Diagnosticos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JButton limpiarBtn;
+    private javax.swing.JTextArea observacionesField;
     private java.awt.Panel panel1;
     private java.awt.Panel panel2;
     private java.awt.Panel panel3;
+    private javax.swing.JButton salirBtn;
     // End of variables declaration//GEN-END:variables
 }
