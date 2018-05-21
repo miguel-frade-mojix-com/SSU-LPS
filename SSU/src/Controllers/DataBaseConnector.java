@@ -9,6 +9,7 @@ package Controllers;
 
 import Classes.Medico;
 import java.sql.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Miguel
@@ -48,7 +49,7 @@ public class DataBaseConnector {
     private PreparedStatement pst;  
     private ResultSet rs;
     
-    public boolean connect(String user, String pass ){
+    public int connect(String user, String pass ){
         Connection con = null;
         try {
             con = DriverManager.getConnection(connection, username,password );
@@ -65,14 +66,15 @@ public class DataBaseConnector {
                 System.out.println("Welcome user "+   rs.getString("Username"));
                 String medicoId= rs.getString("ID_Medico");
                 medico = getMedico(medicoId);
-                return true;
+                return 1;
             }else{
-               return false;
+               return 0;
             }
             
         }catch(SQLException ex){
             System.err.println("Failed connection to " + connection + " " + ex.getMessage() );    
-            return false;
+            JOptionPane.showMessageDialog(null, "Problemas de conexión con la base de datos. ","Login Eroor",JOptionPane.ERROR_MESSAGE );
+            return 2;
         }finally{
             try {
                 if(con!=null){
@@ -91,7 +93,7 @@ public class DataBaseConnector {
         PreparedStatement pst =null;
         ResultSet rs2 = null;
         Connection con = null;
-        
+        System.out.println("EL ID DEL USUARIO ES: " + id);
         try{
             con = DriverManager.getConnection(connection, username, password);
             pst=con.prepareStatement(query);

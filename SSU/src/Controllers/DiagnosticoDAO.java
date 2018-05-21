@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -71,8 +72,52 @@ public class DiagnosticoDAO extends DataBaseConnector{
         }      
         
     }
+    public void guardarHistorial(String benId,String agendaId,String diagnosticoId,String recetaId,String laboratorioId,String signosVitalesId  ){
+        
+        Date hoy = new Date();
+        Connection con = null;
+        PreparedStatement pst=null; 
+        
+        String query = "insert into historial_clinico (ID_HC, ID_Beneficiario,ID_Agenda,ID_Diagnostico,ID_Receta,ID_Orden_Laboratorio,ID_Signos_Vitales) values "+
+                "?,?,?,?,?,?,? ";
+        Timestamp timeStamp = new Timestamp(hoy.getTime());
+        
+         try{
+            con=DriverManager.getConnection( connection, username,password );
+            pst=con.prepareStatement(query);
+            pst.setString(1, timeStamp.toString());
+            pst.setString(2, benId);
+            pst.setString(3, agendaId);
+            pst.setString(4, diagnosticoId);
+            pst.setString(5, recetaId);
+            pst.setString(6, laboratorioId);
+            pst.setString(7, signosVitalesId);
+            pst.executeUpdate();
+             JOptionPane.showMessageDialog(null, "Registro guardado exitosamente");
+            
+        }catch(SQLException ex){
+            System.out.println("Agendar pacientes has failed:  "+ ex.getMessage());
+        }finally{
+               try{
+               if(con!=null)
+                   con.close();
+           }catch(SQLException exe){
+               System.out.println("Connection couldnot close: " + exe.getMessage());
+           }
+            
+           try{
+               if(pst!=null){
+                   pst.close();
+               }
+           }catch(SQLException exe2){
+               System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
+           }
+            
+        
+        
+         }
+    }
     
-    
-    
+   
     
 }
