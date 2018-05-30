@@ -1,0 +1,5 @@
+IP:localhost
+PORT:3307
+DATABASE:segurosocialuniversitario
+USERNAME:admin
+PASSWORD:ERINnb2uaUZxvlwh

@@ -6,7 +6,9 @@
 package Controllers;
 
 import Classes.Beneficiario;
+import Classes.DetalleReceta;
 import Classes.Medicamento;
+import Classes.RecetaMedica;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -115,6 +117,85 @@ public class RecetaDAO extends DataBaseConnector{
         }
     }
     
+    public static LinkedList getRecetas(String beneficiarioID){
+        
+        LinkedList recetas = new LinkedList();
+        
+        Connection con = null;
+        PreparedStatement pst =null;
+        ResultSet rs = null;
+        
+        String query = "Select * from recetas where ID_Beneficiario = ?";
+        
+           try{
+            con= DriverManager.getConnection(connection, username, password);
+            pst = con.prepareStatement(query);
+            pst.setString(1, beneficiarioID);
+            rs=pst.executeQuery();
+            while(rs.next()){
+              RecetaMedica receta = new RecetaMedica(rs.getString("ID_Receta"),new Date( rs.getDate("Fecha_Receta").getTime()));
+              recetas.add(receta);
+            }   
+        }catch (SQLException ex){
+            System.out.println("Controllers.RecetaDAO.getMedicamentos()" + ex.getMessage());
+        }finally{
+            try{
+               if(con!=null)
+                   con.close();
+           }catch(SQLException exe){
+               System.out.println("Connection couldnot close: " + exe.getMessage());
+           }   
+           try{
+               if(pst!=null){
+                   pst.close();
+               }
+           }catch(SQLException exe2){
+               System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
+           }
+        }
+        
+        return recetas;
+    }
     
+    public static LinkedList getDetalleReceta(String recetaId){
+        
+        LinkedList detalleRecetas= new LinkedList();
+        
+        Connection con = null;
+        PreparedStatement pst =null;
+        ResultSet rs = null;
+        
+        String query = "select medicamentos.Producto as \"Producto\", detalle_receta.Cantidad as \"Cantidad\", detalle_receta.Dosificacion as \"Dosificacion\", detalle_receta.Indicaciones as \"Indicaciones\" from detalle_receta  inner join medicamentos on detalle_receta.ID_Medicamento=medicamentos.ID_Medicamento where detalle_receta.ID_Receta=?;";
+              try{
+            con= DriverManager.getConnection(connection, username, password);
+            pst = con.prepareStatement(query);
+            pst.setString(1, recetaId);
+            rs=pst.executeQuery();
+            while(rs.next()){
+                System.out.println("Controllers.RecetaDAO.getDetalleReceta()  Successful detalles"  );
+
+                DetalleReceta detalle = new DetalleReceta(rs.getString("Producto"), rs.getInt("Cantidad"), rs.getString("Dosificacion"), rs.getString("Indicaciones"));
+                detalleRecetas.add(detalle);
+            }   
+        }catch (SQLException ex){
+            System.out.println("Controllers.RecetaDAO.DetalleMedicamentos() " + ex.getMessage());
+        }finally{
+            try{
+               if(con!=null)
+                   con.close();
+           }catch(SQLException exe){
+               System.out.println("Connection couldnot close: " + exe.getMessage());
+           }   
+           try{
+               if(pst!=null){
+                   pst.close();
+               }
+           }catch(SQLException exe2){
+               System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
+           }
+        }
+        
+        return detalleRecetas;
+    }
     
 }

@@ -18,8 +18,6 @@ public class AgendaDAO extends DataBaseConnector {
     
 
     
-    
-    
     public static LinkedList<Agenda> getAgendados(Date fechaConsulta, String nombreMedico){
         LinkedList agendados = new LinkedList();
         String ID_Medico = getIDMedico(nombreMedico);

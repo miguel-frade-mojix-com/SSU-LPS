@@ -6,8 +6,10 @@
 package Controllers;
 
 import Classes.Beneficiario;
+import Classes.DetalleExamenesLaboratorio;
 import Classes.Enfermedad;
 import Classes.Examenes;
+import Classes.OrdenDeLaboratorio;
 import static Controllers.DataBaseConnector.connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -90,10 +92,7 @@ public class ExamenesDAO extends DataBaseConnector {
             query2+="('"+timeStamp.toString()+"','"+examenes[i]  +"','"+emptyResult+"')";
             if(i==examenes.length-1)query2+=";";
             else query2+=",";
-        }            
-        
-        System.out.println(query2);
-        
+        }
         try{
             con = DriverManager.getConnection(connection, username, password);
             
@@ -117,8 +116,89 @@ public class ExamenesDAO extends DataBaseConnector {
     }
     
     
-    public void saveExamenes(){
+    public static LinkedList getExamenesDePaciente(String pacienteId){
+        LinkedList ordenesDeLaboratorio = new LinkedList();
         
+        Connection con = null;
+        PreparedStatement pst=null;        
+        ResultSet rs = null;
+        
+        String query="select * from orden_laboratorio where ID_Beneficiario =?;";
+        
+        try{
+            con = DriverManager.getConnection(connection, username, password);
+            pst= con.prepareStatement(query);
+            pst.setString(1, pacienteId );
+            
+            rs= pst.executeQuery();
+            
+            while(rs.next()){
+                ordenesDeLaboratorio.add(new OrdenDeLaboratorio(rs.getString(1), pacienteId, new Date(rs.getDate(5).getTime() ), rs.getString(4)));
+            }
+        
+        
+        }catch(SQLException ex){
+            System.out.println("Agendar pacientes has failed:  "+ ex.getMessage());
+        }finally{
+               try{
+               if(con!=null)
+                   con.close();
+           }catch(SQLException exe){
+               System.out.println("Connection couldnot close: " + exe.getMessage());
+           }    
+           try{
+               if(pst!=null){
+                   pst.close();
+               }
+           }catch(SQLException exe2){
+               System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
+           }            
+        }        
+        return ordenesDeLaboratorio;
     }
+    
+    public static LinkedList getDetalleExamenes(String ordenLaboratorioID){
+        LinkedList detalles=new LinkedList();
+        
+        Connection con = null;
+        PreparedStatement pst=null;        
+        ResultSet rs = null;
+        
+        String query="select estudio_examen.Detalle as 'Estudio', detalle_examenes_laboratorio.Resultado_Examen as 'Resultado'  from detalle_examenes_laboratorio inner join estudio_examen on detalle_examenes_laboratorio.ID_Estudio_Examen=estudio_examen.ID_Estudio_Examen where ID_Orden_Laboratorio =?;";
+        
+           try {
+            con = DriverManager.getConnection(connection, username, password);
+            pst = con.prepareStatement(query);
+            pst.setString(1, ordenLaboratorioID);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                detalles.add(new DetalleExamenesLaboratorio(ordenLaboratorioID,rs.getString(1),  rs.getString(2)));
+            }
+               System.out.println("Controllers.ExamenesDAO.getDetalleExamenes() se han obtenido " +detalles.size() + " examenes;" );
+        } catch (SQLException ex) {
+            System.out.println("Agendar pacientes has failed:  " + ex.getMessage());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException exe) {
+                System.out.println("Connection couldnot close: " + exe.getMessage());
+            }
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (SQLException exe2) {
+                System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
+            }
+        }     
+        
+        return detalles;
+    }
+    
+    
     
 }

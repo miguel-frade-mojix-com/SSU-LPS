@@ -8,18 +8,32 @@ package Controllers;
 
 
 import Classes.Medico;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
  * @author Miguel
  */
 public class DataBaseConnector {
+        
+    private static String ip = "localhost";
+    private static String port = "3307";
+    private static String database = "segurosocialuniversitario";
     
     //VAriables to connecto to server 
-    protected static final String connection= "jdbc:mysql://localhost:3307/segurosocialuniversitario";   
-    protected static final String password ="ERINnb2uaUZxvlwh";//ERINnb2uaUZxvlwh
-    protected static final String username= "admin";
+    protected  static String connection= "jdbc:mysql://"+ip+":"+port+"/" + database;   
+    protected static  String password ="ERINnb2uaUZxvlwh";//ERINnb2uaUZxvlwh
+    protected static  String username= "admin";
     private static Medico medico;
     
 //    
@@ -51,39 +65,46 @@ public class DataBaseConnector {
     
     public int connect(String user, String pass ){
         Connection con = null;
-        try {
-            con = DriverManager.getConnection(connection, username,password );
-            System.out.println("Connection executed successfully");
-        
-            String query = "SELECT * FROM Usuarios WHERE Username =? and Password =? ";
-            pst =  con.prepareStatement(query);
-            pst.setString(1, user);
-            pst.setString(2, pass);
-            rs=pst.executeQuery();
+ 
+        if(user.compareTo("AJUSTES") ==0&&  pass.compareTo("AJUSTES")==0 ){
             
             
-            if( rs.next() ){
-                System.out.println("Welcome user "+   rs.getString("Username"));
-                String medicoId= rs.getString("ID_Medico");
-                medico = getMedico(medicoId);
-                return 1;
-            }else{
-               return 0;
-            }
-            
-        }catch(SQLException ex){
-            System.err.println("Failed connection to " + connection + " " + ex.getMessage() );    
-            JOptionPane.showMessageDialog(null, "Problemas de conexión con la base de datos. ","Login Eroor",JOptionPane.ERROR_MESSAGE );
-            return 2;
-        }finally{
+            return 9;
+        }else{
             try {
-                if(con!=null){
-                    con.close();
-                    System.out.println("Conecction was closed");
+                con = DriverManager.getConnection(connection, username,password );
+                System.out.println("Connection executed successfully");
+
+                String query = "SELECT * FROM Usuarios WHERE Username =? and Password =? ";
+                pst =  con.prepareStatement(query);
+                pst.setString(1, user);
+                pst.setString(2, pass);
+                rs=pst.executeQuery();
+
+
+                if( rs.next() ){
+                    System.out.println("Welcome user "+   rs.getString("Username"));
+                    String medicoId= rs.getString("ID_Medico");
+                    medico = getMedico(medicoId);
+                    return 1;
+                }else{
+                   return 0;
                 }
-            }catch(SQLException ex2){
-                System.out.println("Controllers.DataBaseConnector.connect()"+ ex2.getMessage());
-            }    
+
+            }catch(SQLException ex){
+                System.err.println("Failed connection to " + connection + " " + ex.getMessage() );    
+                JOptionPane.showMessageDialog(null, "Problemas de conexión con la base de datos. ","Login Eroor",JOptionPane.ERROR_MESSAGE );
+                return 2;
+            }finally{
+                try {
+                    if(con!=null){
+                        con.close();
+                        System.out.println("Conecction was closed");
+                    }
+                }catch(SQLException ex2){
+                    System.out.println("Controllers.DataBaseConnector.connect()"+ ex2.getMessage());
+                }    
+            }
         }
     }
     
@@ -119,12 +140,62 @@ public class DataBaseConnector {
                 System.err.println("" + exe.getMessage());
             }
         }
-        
-        
-        
         return aux;
     }
     
+    
+    public static String[] config() {
+       String [] results = new String[6];
+     try{   
+        FileInputStream file = new FileInputStream("config.txt");
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(file));
+        System.out.println("Controllers.DataBaseConnector.config()");
+        String strLine;
+        int i=0;
+       
+       while ((strLine = br.readLine()) != null)   {
+         String aux[]=strLine.split(":");
+         results[i]=aux[1];
+         System.out.println (results[i]);
+         i++;
+       }
+       //Close the input stream
+       br.close();
+     }catch(IOException ex){
+         System.out.println("Error file not found ");
+     }       
+     return results;
+    }
+    
+    public static void guardarConfiguracion(String valores[]){
+        ip = valores[0];
+        port=valores[1];
+        database=valores[2];
+        username=valores[3];
+        password=valores[4];
+            
+        StringBuilder sb = new StringBuilder();
+        sb.append("IP:" +ip+"\n\r");
+        sb.append("PORT:"+port +"\n\r" );
+        sb.append("DATABASE:"+database+"\n\r");
+        sb.append("USERNAME:"+username+"\n\r");
+        sb.append("PASSWORD:"+password+"\n\r");
+        
+        
+        try{
+            File file = new File("config.txt");
+            FileWriter writer = new FileWriter(file, false); // true to append
+            
+            writer.write(sb.toString());
+            writer.close();
+        
+        }catch(IOException ex){ // false to overwrite.
+        
+            System.out.println("Controllers.DataBaseConnector.guardarConfiguracion() error: "+ ex.getMessage());
+        
+        }
+    }
     
     
 }
