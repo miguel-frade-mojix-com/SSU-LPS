@@ -1,4 +1,4 @@
-IP:localhost
+IP:192.168.84.23
 PORT:3307
 DATABASE:segurosocialuniversitario
 USERNAME:admin

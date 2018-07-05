@@ -27,12 +27,9 @@ public class AgendaDAO extends DataBaseConnector {
         today.add(3, 1);
         
         String tomorrow=" "+today.get(1) +"-0" + (today.get(2)+1)+ "-"  + today.get(3);
-        
         System.out.println("Fecha de consulta:" + fechaHoy +  " " + fechaConsulta.toString()  +  " mañana:" + tomorrow + " "+today.getTime()  );
         String query="SELECT * FROM agenda WHERE ID_MEDICO=?  AND Fecha_Agendada =? ;";
-        
-      //  java.sql.Date(fechaConsulta.getYear(), fechaConsulta.getMonth(), fechaConsulta.getDate());
-        
+             
         Connection con = null;
         PreparedStatement pst;
         PreparedStatement pst2;
@@ -57,7 +54,7 @@ public class AgendaDAO extends DataBaseConnector {
                    System.out.println("Beneficiario agendado: " +rs2.getString("Primer_Nombre") + " " + rs2.getString("Primer_Apellido")    );
                     Beneficiario ben = new Beneficiario(rs2.getString("Ciudad")   , rs2.getString("Direccion"), rs2.getDate("Fecha_Nacimiento"),rs2.getString("Genero").charAt(0) , rs2.getString("Primer_Nombre"), rs2.getString("Primer_Apellido"), rs2.getString("Segundo_Nombre"), rs2.getString("Segundo_Apellido"), fechaConsulta, "Titular",rs2.getString("ID_Beneficiario"));
         
-                   agendados.add(new Agenda( ben, rs.getInt(4),atencion,rs.getInt(6) )  );        
+                   agendados.add(new Agenda(rs.getString("ID_Agenda"), ben, rs.getInt(4),atencion,rs.getInt(6) )  );        
                }
            }
         }catch (SQLException ex){
@@ -92,7 +89,7 @@ public class AgendaDAO extends DataBaseConnector {
 //        String apellidoMaterno = campos[2];
         String result="";
  
-        String statement= "SELECT * FROM medicos WHERE Primer_Nombre=? and Apellido_Paterno=? ;";
+        String statement= "SELECT * FROM medicos WHERE Primer_Nombre=? and Primer_Apellido=? ;";
         String query = "SELECT * FROM medicos" ;
         Connection con = null;
         PreparedStatement pst;  
@@ -224,9 +221,47 @@ public class AgendaDAO extends DataBaseConnector {
     }
     
     
-    
-    
-    
-    
+    public LinkedList filtrarHorariosDisponibles(Date fecha ,String idMedico){
+        LinkedList<Integer> turnosNoDisponibles = new LinkedList<>();
+        Connection con = null;
+        PreparedStatement pst=null;  
+        ResultSet rs = null;
+                String query="select turno from agenda where  "+
+                "ID_Medico =? and   Fecha_Agendada=? ;";
+         
+               
+        try{
+            con=DriverManager.getConnection( connection, username,password );
+            pst=con.prepareStatement(query);
+            pst.setString(1, idMedico);
+            pst.setDate(2, new java.sql.Date(fecha.getTime()));
+            rs=pst.executeQuery();
+            while(rs.next()){
+                turnosNoDisponibles.add(rs.getInt(0));
+            }
+            
+        }catch(SQLException ex){
+            System.out.println("Agendar pacientes has failed:  "+ ex.getMessage());
+         }finally{
+               try{
+               if(con!=null)
+                   con.close();
+           }catch(SQLException exe){
+               System.out.println("Connection couldnot close: " + exe.getMessage());
+           }
+            
+           try{
+               if(pst!=null){
+                   pst.close();
+               }
+           }catch(SQLException exe2){
+               System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
+           }
+            
+        
+        
+        }
+        return turnosNoDisponibles;
+    }
     
 }

@@ -227,10 +227,18 @@ public class Agenda extends javax.swing.JFrame {
         int turnoSalida=DataBaseConnector.getMedico().getCalcularTurno(horarioSalida[0]);
         
         for (int i=turnoInicio;i<turnoSalida;i++){
-             String hora="";
-             hora+= ((i/4)+8)+":";
-             int modulo=i%4;  
-            if (modulo==0) hora+="00"; else if(modulo==1)hora+="15"; else if(modulo==2)hora+="30";        else hora+="45";
+            String hora="";
+            hora+= ((i/4)+8)+":";
+            int modulo=i%4;  
+            if (modulo==0) 
+                hora+="00"; 
+            else if(modulo==1)
+                hora+="15";
+            else if(modulo==2)
+                hora+="30";
+            else 
+                hora+="45";
+            
             turnoField.addItem(hora  );
         }
         

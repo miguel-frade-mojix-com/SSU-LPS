@@ -34,6 +34,9 @@ public class Inicio extends javax.swing.JFrame {
     private LinkedList <Agenda> agendados;
     private DefaultTableModel tablaAgenda;
     private Consulta consulta;
+    
+    private String agendaId;
+    
     /**
      * Creates new form Home
      */
@@ -385,9 +388,9 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-
         Consulta consulta = new Consulta();
         consulta.getDatosPacientes().mostrarDatosPaciente(BeneficiarioSeleccionado);
+        consulta.setAgendaId(agendaId);
         consulta.setLocation(this.getLocation().x/4, this.getLocation().y/4);
         consulta.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -479,6 +482,7 @@ public class Inicio extends javax.swing.JFrame {
                 if(!model.isSelectionEmpty()){
                     int result = model.getMinSelectionIndex();
                     mostrarDatosPaciente(result);
+                    agendaId = agendados.get(result).getId();
 //                    JOptionPane.showMessageDialog(null, "Selected row =  " + result);
                 }   
            }
@@ -496,7 +500,6 @@ public class Inicio extends javax.swing.JFrame {
     private void checDateChange(){
                jCalendar1.addPropertyChangeListener(new PropertyChangeListener(){
                 public void properyChange(PropertyChangeEvent e ){}
-
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
                     mostrarAgendados();

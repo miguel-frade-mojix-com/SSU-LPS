@@ -8,7 +8,8 @@
      detalle_receta.`Indicaciones`
 FROM
      `detalle_receta` detalle_receta INNER JOIN `medicamentos` medicamentos ON detalle_receta.`ID_Medicamento` = medicamentos.`ID_Medicamento`
-]]>
+WHERE
+     detalle_receta.ID_Receta = ( SELECT `recetas`.`ID_Receta` FROM `recetas` WHERE ID_Beneficiario = 47896 )]]>
 	</queryString>
 	<field name="Producto" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>

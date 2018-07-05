@@ -12,10 +12,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -149,7 +152,7 @@ public class DataBaseConnector {
      try{   
         FileInputStream file = new FileInputStream("config.txt");
         
-        BufferedReader br = new BufferedReader(new InputStreamReader(file));
+        BufferedReader br = new BufferedReader(new InputStreamReader(file) );
         System.out.println("Controllers.DataBaseConnector.config()");
         String strLine;
         int i=0;
@@ -176,19 +179,23 @@ public class DataBaseConnector {
         password=valores[4];
             
         StringBuilder sb = new StringBuilder();
-        sb.append("IP:" +ip+"\n\r");
-        sb.append("PORT:"+port +"\n\r" );
-        sb.append("DATABASE:"+database+"\n\r");
-        sb.append("USERNAME:"+username+"\n\r");
-        sb.append("PASSWORD:"+password+"\n\r");
+        String s = System.lineSeparator();
+        sb.append("IP:" +ip+s);
+
+        sb.append("PORT:"+port +s );
+        sb.append("DATABASE:"+database+s);
+        sb.append("USERNAME:"+username+s);
+        sb.append("PASSWORD:"+password+s);
         
         
         try{
             File file = new File("config.txt");
-            FileWriter writer = new FileWriter(file, false); // true to append
+            FileOutputStream fileStream = new FileOutputStream(file,false);
+            OutputStreamWriter writer2 = new OutputStreamWriter(fileStream, StandardCharsets.UTF_8);
             
-            writer.write(sb.toString());
-            writer.close();
+            writer2.write(sb.toString());
+            
+            writer2.close();
         
         }catch(IOException ex){ // false to overwrite.
         
