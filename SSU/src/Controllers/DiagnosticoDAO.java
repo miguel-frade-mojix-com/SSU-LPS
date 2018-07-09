@@ -32,9 +32,6 @@ public class DiagnosticoDAO extends DataBaseConnector{
         
         Timestamp timeStamp = new Timestamp(hoy.getTime());
         
-        
-        
-        
         try{
             con=DriverManager.getConnection( connection, username,password );
             pst=con.prepareStatement(query);

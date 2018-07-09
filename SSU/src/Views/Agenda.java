@@ -8,7 +8,10 @@ package Views;
 import Classes.Beneficiario;
 import Controllers.AgendaDAO;
 import Controllers.DataBaseConnector;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Date;
+import java.util.HashSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,13 +22,15 @@ public class Agenda extends javax.swing.JFrame {
     
     
     Beneficiario beneficiario;
+    HashSet<Integer> horariosNoSisponibles;
     
     /**
      * Creates new form Agenda
      */
     public Agenda() {
         initComponents();
-        
+        horariosNoSisponibles= new HashSet<>();
+        checDateChange();
     }
 
     /**
@@ -212,37 +217,61 @@ public class Agenda extends javax.swing.JFrame {
         });
     }
     
-    
+    public void actualizarHorarioDisponible(){
+        horariosNoSisponibles = AgendaDAO.verHorarioDisponible(dateField.getDate());   
+    }
     
     public void getData(Beneficiario ben){
         beneficiario=ben;
-//        dateField.getCalendar().setTime( new Date());
         pacienTxt.setText(""+ ben.getPrimerNombre()+ " " + ben.getPrimerApellido() + " " +ben.getSegundoApellido() );
         turnoField.removeAll();;
+
+    }
+    
+    private void mostrarTurnos(){
         
-        //segmento para mostrar los horarios disponibles del doctor
         String horarioInicio[]=DataBaseConnector.getMedico().getHorarioInicio().split(":");
         int turnoInicio=DataBaseConnector.getMedico().getCalcularTurno(horarioInicio[0]);
         String horarioSalida[]=DataBaseConnector.getMedico().getHorarioSalida().split(":");
         int turnoSalida=DataBaseConnector.getMedico().getCalcularTurno(horarioSalida[0]);
         
-        for (int i=turnoInicio;i<turnoSalida;i++){
-            String hora="";
-            hora+= ((i/4)+8)+":";
-            int modulo=i%4;  
-            if (modulo==0) 
-                hora+="00"; 
-            else if(modulo==1)
-                hora+="15";
-            else if(modulo==2)
-                hora+="30";
-            else 
-                hora+="45";
+        turnoField.removeAll();;
+        turnoField.removeAllItems();
+              for (int i=turnoInicio;i<turnoSalida;i++){
             
-            turnoField.addItem(hora  );
+            if( !horariosNoSisponibles.contains(i)){
+                String hora="";
+                hora+= ((i/4)+8)+":";
+                int modulo=i%4;  
+                
+                if (modulo==0) 
+                    hora+="00"; 
+                else if(modulo==1)
+                    hora+="15";
+                else if(modulo==2)
+                    hora+="30";
+                else 
+                    hora+="45";
+                
+                turnoField.addItem(hora  );
+            }
         }
         
     }
+    
+    
+        private void checDateChange(){
+               dateField.addPropertyChangeListener(new PropertyChangeListener(){
+                public void properyChange(PropertyChangeEvent e ){}
+                @Override
+                public void propertyChange(PropertyChangeEvent evt) {
+                    System.out.println(".propertyChange() on agenda.dateField" );
+                    actualizarHorarioDisponible();
+                    mostrarTurnos();
+                }
+            });
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agendarBtn;

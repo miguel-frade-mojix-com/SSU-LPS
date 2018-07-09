@@ -1,10 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Views;
 
+import Controllers.AgendaDAO;
+import Controllers.DataBaseConnector;
+import Controllers.DiagnosticoDAO;
 import Views.SignosVitales;
 import Views.Expediente_Clinico;
 import Views.VistaImpresion;
@@ -22,6 +20,7 @@ public class Consulta extends javax.swing.JFrame {
       SignosVitales signosVitales;
       Diagnosticos diagnosticoView;
       Expediente_Clinico expClinico;
+      Inicio inicio;
       
       StringBuilder diagnostico;
       StringBuilder laboratorios;
@@ -30,6 +29,7 @@ public class Consulta extends javax.swing.JFrame {
       String recetasId;
       String examenesId;
       String diagnosticoId;
+      String agendaId;
       
     public Consulta() {
         initComponents();
@@ -48,9 +48,9 @@ public class Consulta extends javax.swing.JFrame {
 
         datosPaciente2 = new Views.DatosPaciente();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        subjetivoText = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        objetivoTxt = new javax.swing.JTextArea();
         diagnosticoBtn = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         analiticoTxt = new javax.swing.JTextArea();
@@ -58,7 +58,7 @@ public class Consulta extends javax.swing.JFrame {
         expedienteBtn = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         planField = new javax.swing.JTextArea();
-        jButton4 = new javax.swing.JButton();
+        guardarCnsultaBtn = new javax.swing.JButton();
         imprimirBtn = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         panel1 = new java.awt.Panel();
@@ -76,13 +76,13 @@ public class Consulta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Consulta Externa");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        subjetivoText.setColumns(20);
+        subjetivoText.setRows(5);
+        jScrollPane1.setViewportView(subjetivoText);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        objetivoTxt.setColumns(20);
+        objetivoTxt.setRows(5);
+        jScrollPane2.setViewportView(objetivoTxt);
 
         diagnosticoBtn.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\diagnostico.png")); // NOI18N
         diagnosticoBtn.setText("DIAGNOSTICO");
@@ -123,11 +123,11 @@ public class Consulta extends javax.swing.JFrame {
         planField.setRows(5);
         jScrollPane4.setViewportView(planField);
 
-        jButton4.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\editar.png")); // NOI18N
-        jButton4.setText("CONCLUIR CONSULTA");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        guardarCnsultaBtn.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\editar.png")); // NOI18N
+        guardarCnsultaBtn.setText("CONCLUIR CONSULTA");
+        guardarCnsultaBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                guardarCnsultaBtnActionPerformed(evt);
             }
         });
 
@@ -273,7 +273,7 @@ public class Consulta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(guardarCnsultaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(48, 48, 48)
                         .addComponent(imprimirBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
@@ -293,7 +293,7 @@ public class Consulta extends javax.swing.JFrame {
                                 .addComponent(examenesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(recetaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, Short.MAX_VALUE))
+                                .addGap(18, 747, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -317,9 +317,7 @@ public class Consulta extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(expedienteBtn)
                                 .addGap(44, 44, 44))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(datosPaciente2, javax.swing.GroupLayout.PREFERRED_SIZE, 1374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 31, Short.MAX_VALUE))))
+                    .addComponent(datosPaciente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,7 +358,7 @@ public class Consulta extends javax.swing.JFrame {
                         .addComponent(agendarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
+                    .addComponent(guardarCnsultaBtn)
                     .addComponent(imprimirBtn)
                     .addComponent(jButton6))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -403,14 +401,13 @@ public class Consulta extends javax.swing.JFrame {
             diagnosticoView = new Diagnosticos();
         diagnosticoView.setVisible(true);
         diagnosticoView.setConsulta(this);
-        
     }//GEN-LAST:event_diagnosticoBtnActionPerformed
 
     
     //Evento en el boton para salir de la vista     
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
            this.setVisible(false);
-
+           this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     
@@ -451,15 +448,25 @@ public class Consulta extends javax.swing.JFrame {
             agenda=new Agenda();
         }
         agenda.setVisible(true);
-//        agenda.setLocation( , WIDTH);
         agenda.setLocation(this.getWidth()/2, this.getHeight()/2);
-        System.err.println("LOCATION OF AGENDA FRAME IS X:" +agenda.getLocation().x+ " y:" + agenda.getLocation().y );
         agenda.getData(datosPaciente2.getPaciente());
     }//GEN-LAST:event_agendarBtnActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void guardarCnsultaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarCnsultaBtnActionPerformed
+
+        String valores[] = new String[5];
+        valores[0]= subjetivoText.getText();
+        valores[1]=objetivoTxt.getText();
+        valores[2]=analiticoTxt.getText();
+        valores[3] = planField.getText();
+        valores[4]= datosPaciente2.getPaciente().getID();        
+        DiagnosticoDAO.guardarConfiguracion(valores);
+        
+        AgendaDAO.actualizarConsulta(agendaId);
+        inicio.actualizarConsulta();
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_guardarCnsultaBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -499,7 +506,8 @@ public class Consulta extends javax.swing.JFrame {
     
     
     public DatosPaciente getDatosPacientes(){return this.datosPaciente2;}
-    
+    public void setAgendaId(String id){this.agendaId=id;}
+    public void setInicio(Inicio inicio) {this.inicio = inicio;} 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agendarBtn;
@@ -508,8 +516,8 @@ public class Consulta extends javax.swing.JFrame {
     private javax.swing.JButton diagnosticoBtn;
     private javax.swing.JButton examenesBtn;
     private javax.swing.JButton expedienteBtn;
+    private javax.swing.JButton guardarCnsultaBtn;
     private javax.swing.JButton imprimirBtn;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -519,8 +527,7 @@ public class Consulta extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea objetivoTxt;
     private java.awt.Panel panel1;
     private java.awt.Panel panel2;
     private java.awt.Panel panel3;
@@ -528,5 +535,6 @@ public class Consulta extends javax.swing.JFrame {
     private javax.swing.JTextArea planField;
     private javax.swing.JButton recetaBtn;
     private javax.swing.JButton signosVitalesBtn;
+    private javax.swing.JTextArea subjetivoText;
     // End of variables declaration//GEN-END:variables
 }

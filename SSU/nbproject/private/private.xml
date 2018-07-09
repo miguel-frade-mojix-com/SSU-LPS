@@ -3,20 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Classes/DetalleExamenesLaboratorio.java</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Controllers/DataBaseConnector.java</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/config.txt</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Classes/DetalleReceta.java</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Controllers/RecetaDAO.java</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/Ajustes.java</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/Expediente_Clinico.java</file>
             <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/Inicio.java</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/Examenes_Laboratorio.java</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Controllers/ExamenesDAO.java</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/DatosPaciente.java</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/Login.java</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/Consulta.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/Agenda.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/RegistroMedicos.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Classes/Agenda.java</file>
             <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Controllers/AgendaDAO.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/Consulta.java</file>
         </group>
     </open-files>
 </project-private>

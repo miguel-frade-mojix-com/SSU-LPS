@@ -9,7 +9,9 @@ import java.util.Date;
 import java.util.LinkedList;
 import Classes.Agenda;
 import Classes.Beneficiario;
+import Classes.Medico;
 import java.util.Calendar;
+import java.util.HashSet;
 import javax.swing.JOptionPane;
 /**
  *
@@ -136,7 +138,6 @@ public class AgendaDAO extends DataBaseConnector {
     
     
     public static void  agendarPaciente(Beneficiario ben,Date fecha,int turno ){
-        
         Connection con = null;
         PreparedStatement pst=null;
         String query = "INSERT INTO agenda "
@@ -144,39 +145,44 @@ public class AgendaDAO extends DataBaseConnector {
                 + " values( ?,?,?,?,?,? );";
         Date now = new Date();
         Timestamp time = new Timestamp(now.getTime());
-        try{
-            con=DriverManager.getConnection( connection, username,password );
-            pst=con.prepareStatement(query);
-            pst.setString(1, time.toString());
-            pst.setString(2, ben.getID());
-            pst.setDate(3, new java.sql.Date(fecha.getTime()) );
-            pst.setInt(4, 0);
-            pst.setString(5,DataBaseConnector.getMedico().getID());
-            pst.setString(6,""+turno);
-            
-            pst.executeUpdate();
-            
-        }catch(SQLException ex){
-            System.out.println("Agendar pacientes has failed:  "+ ex.getMessage());
-        }finally{
-               try{
-               if(con!=null)
-                   con.close();
-           }catch(SQLException exe){
-               System.out.println("Connection couldnot close: " + exe.getMessage());
-           }
-           try{
-               if( pst!=null){
-                   pst.close();
-               }
-           }catch(SQLException exe2){
-               System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
-           }
-        }
         
+        boolean agendado=verificarAgenda(fecha, ben.getID());
+        
+        if(agendado == true){
+            JOptionPane.showMessageDialog(null, "El paciente " + ben.getPrimerNombre() + " " + ben.getPrimerApellido() + " " + ben.getSegundoApellido() + " ya esta agendado para la fecha: " + fecha.toString());
+        }else{
+        
+            try{
+                con=DriverManager.getConnection( connection, username,password );
+                pst=con.prepareStatement(query);
+                pst.setString(1, time.toString());
+                pst.setString(2, ben.getID());
+                pst.setDate(3, new java.sql.Date(fecha.getTime()) );
+                pst.setInt(4, 0);
+                pst.setString(5,DataBaseConnector.getMedico().getID());
+                pst.setString(6,""+turno);
+
+                pst.executeUpdate();
+
+            }catch(SQLException ex){
+                System.out.println("Agendar pacientes has failed:  "+ ex.getMessage());
+            }finally{
+                   try{
+                   if(con!=null)
+                       con.close();
+               }catch(SQLException exe){
+                   System.out.println("Connection couldnot close: " + exe.getMessage());
+               }
+               try{
+                   if( pst!=null){
+                       pst.close();
+                   }
+               }catch(SQLException exe2){
+                   System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
+               }
+            }   
+        }
     }
-    
-    
     
     public void agendarOrdenDeLaboratorio(Beneficiario ben,Date fecha,String detalle   ){
         Connection con = null;
@@ -199,13 +205,12 @@ public class AgendaDAO extends DataBaseConnector {
         }catch(SQLException ex){
             System.out.println("Agendar pacientes has failed:  "+ ex.getMessage());
         }finally{
-               try{
+            try{
                if(con!=null)
                    con.close();
            }catch(SQLException exe){
                System.out.println("Connection couldnot close: " + exe.getMessage());
            }
-            
            try{
                if(pst!=null){
                    pst.close();
@@ -213,12 +218,7 @@ public class AgendaDAO extends DataBaseConnector {
            }catch(SQLException exe2){
                System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
            }
-            
-            
-            
         }
-        
-        
     }
     
     
@@ -263,27 +263,26 @@ public class AgendaDAO extends DataBaseConnector {
     public static void actualizarConsulta(String agendaId){
         Connection con = null;
         PreparedStatement pst=null; 
-        String query="update agenda set Numero_Consulta-1 where ID_Agenda=?";
+        String query="update agenda set Numero_Consulta=1 where ID_Agenda=?";
         
         try{
             con=DriverManager.getConnection( connection, username,password );
             pst=con.prepareStatement(query);
             pst.setString(1, agendaId);
-            
-            pst.executeQuery();
+            pst.executeUpdate();
             
             JOptionPane.showMessageDialog(null, "Consulta Concluida");
             
         }catch(SQLException ex){
             System.out.println("Agendar pacientes has failed:  "+ ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar consulta " + ex.getMessage()                     );
          }finally{
-               try{
+            try{
                if(con!=null)
                    con.close();
            }catch(SQLException exe){
                System.out.println("Connection couldnot close: " + exe.getMessage());
            }
-            
            try{
                if(pst!=null){
                    pst.close();
@@ -295,5 +294,82 @@ public class AgendaDAO extends DataBaseConnector {
         
     }
     
+    public static HashSet<Integer> verHorarioDisponible(Date fecha){
+        HashSet<Integer> horarios = new HashSet<>();
+        Connection con = null;
+        PreparedStatement pst=null; 
+        ResultSet rs = null;
+        String query="select * from agenda where ID_Medico =? and Fecha_Agendada=?";
+        
+        try{
+            con = DriverManager.getConnection( connection, username,password );
+            pst=con.prepareStatement(query);
+            pst.setString(1, DataBaseConnector.getMedico().getID());
+            pst.setDate(2, new java.sql.Date(fecha.getTime()));
+            rs = pst.executeQuery();
+
+            while(rs.next()){
+                horarios.add(rs.getInt("Turno"));
+            }
+        }catch(SQLException ex){
+            System.out.println("Error al conectar con base de datos para buscar fechas disponibles. Error:  "+ ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al buscar consultas " + ex.getMessage()                     );
+         }finally{
+            try{
+               if(con!=null)
+                   con.close();
+           }catch(SQLException exe){
+               System.out.println("Connection couldnot close: " + exe.getMessage());
+           }
+           try{
+               if(pst!=null){
+                   pst.close();
+               }
+           }catch(SQLException exe2){
+               System.out.println("Controllers.AgendaDAO.verHorarioDisponible()");
+           }    
+        }    
+        return horarios;
+    }
+    
+    public static boolean verificarAgenda(Date fecha, String pacienteId){
+        boolean agendado = false;
+        
+        Connection con = null;
+        PreparedStatement pst=null; 
+        ResultSet rs = null;
+        String query="select * from agenda where ID_Beneficiario =? and Fecha_Agendada=?";
+        
+        try{
+            con = DriverManager.getConnection( connection, username,password );
+            pst=con.prepareStatement(query);
+            pst.setString(1,pacienteId);
+            pst.setDate(2, new java.sql.Date(fecha.getTime()));
+            rs = pst.executeQuery();
+
+            while(rs.next()){
+                agendado=true;
+            }
+        }catch(SQLException ex){
+            System.out.println("Error al conectar con base de datos para buscar fechas disponibles. Error:  "+ ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al buscar consultas " + ex.getMessage()                     );
+         }finally{
+            try{
+               if(con!=null)
+                   con.close();
+           }catch(SQLException exe){
+               System.out.println("Connection couldnot close: " + exe.getMessage());
+           }
+           try{
+               if(pst!=null){
+                   pst.close();
+               }
+           }catch(SQLException exe2){
+               System.out.println("Controllers.AgendaDAO.verHorarioDisponible()");
+           }    
+        }
+        
+        return agendado;
+    }
     
 }
