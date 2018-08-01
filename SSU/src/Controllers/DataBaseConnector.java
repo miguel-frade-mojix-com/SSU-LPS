@@ -5,16 +5,11 @@
  */
 package Controllers;
 
-
-
 import Classes.Medico;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -23,12 +18,16 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import Classes.UX.MyLogger;
+
 /**
  *
  * @author Miguel
  */
 public class DataBaseConnector {
         
+    private final static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+      
     private static String ip = "localhost";
     private static String port = "3307";
     private static String database = "segurosocialuniversitario";
@@ -54,6 +53,7 @@ public class DataBaseConnector {
         try {
             con = DriverManager.getConnection(connection, username,password );
             System.out.println("Connection executed successfully");
+            
         }catch(SQLException ex){
              System.err.println("Failed connection to " + connection + " " + ex.getMessage() ); 
              return false;
@@ -61,6 +61,17 @@ public class DataBaseConnector {
         return true;
     }
     
+
+    public static Connection getConnection(){
+        Connection con = null;
+        try {
+            con = DriverManager.getConnection(connection, username,password );
+        }catch(SQLException ex){
+             System.err.println("Failed connection to " + connection + " " + ex.getMessage() ); 
+             return null;
+        }
+        return con;
+    }
     
     
     private PreparedStatement pst;  
@@ -68,10 +79,10 @@ public class DataBaseConnector {
     
     public int connect(String user, String pass ){
         Connection con = null;
- 
+        logger.setLevel(Level.INFO);
+
         if(user.compareTo("AJUSTES") ==0&&  pass.compareTo("AJUSTES")==0 ){
-            
-            
+
             return 9;
         }else{
             try {
@@ -84,12 +95,13 @@ public class DataBaseConnector {
                 pst.setString(2, pass);
                 rs=pst.executeQuery();
 
-
                 if( rs.next() ){
                     System.out.println("Welcome user "+   rs.getString("Username"));
                     String medicoId= rs.getString("ID_Medico");
                     medico = getMedico(medicoId);
-                    return 1;
+                    int permiso = rs.getInt("Permiso");
+                    logger.info("Succesffully connected");
+                    return permiso;
                 }else{
                    return 0;
                 }
@@ -201,6 +213,40 @@ public class DataBaseConnector {
         
             System.out.println("Controllers.DataBaseConnector.guardarConfiguracion() error: "+ ex.getMessage());
         
+        }
+    }
+    
+    public static void actualizarTablad(String tabla, String []columnas, String[]valores){
+         Connection con = null;
+         PreparedStatement ps = null;
+         String query ="update " + tabla + " set "  ;
+         for(int i =0;i< columnas.length;i++){
+             query+= columnas[i] + " = " + valores[i] ;
+             if(i!=columnas.length-1 ){
+                 query+=",";
+            }
+         }
+         try{
+            con=DriverManager.getConnection( connection, username,password );
+            ps=con.prepareStatement(query);  
+            ps.executeUpdate();
+            
+        }catch(SQLException ex){
+            System.out.println("Insertar medico fallo:  "+ ex.getMessage());
+        }finally{
+            try{
+               if(con!=null)
+                   con.close();
+           }catch(SQLException exe){
+               System.out.println("Connection couldnot close: " + exe.getMessage());
+           }
+           try{
+               if(ps!=null){
+                   ps.close();
+               }
+           }catch(SQLException exe2){
+               System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
+           }
         }
     }
     

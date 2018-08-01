@@ -5,12 +5,16 @@
  */
 package Views;
 import Classes.UX.DimensionConstants;
+import Classes.UX.MyLogger;
 import Controllers.DataBaseConnector;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import Views.Inicio;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -25,6 +29,12 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         this.setLocation( DimensionConstants.getMaxWidth()/3,DimensionConstants.getMaxHeight()/3   );
+        try {
+            MyLogger.setup();
+        } catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.INFO, null, ex);
+        }
+        
     }
 
     /**
@@ -235,8 +245,13 @@ public class Login extends javax.swing.JFrame {
        }else if(dbCon.connect(user, password)==0){
            JOptionPane.showMessageDialog(null,  "Usuario o Contraseña incorrecta, vuelva a intentar.","Login Error",JOptionPane.WARNING_MESSAGE);
            clear();
-       }
-       else if(dbCon.connect(user, password)==9 ){
+       }else if( dbCon.connect(user, password) ==2  ){
+            systemExit();
+            RegistroMedicos rm = new RegistroMedicos();
+            rm.setVisible(true);
+            rm.setLocation(this.getLocation().x/3, this.getLocation().y/3);
+            this.setVisible(false);
+       }else if(dbCon.connect(user, password)==9 ){
             Ajustes ajustes = new Ajustes();
             ajustes.setVisible(true);
             ajustes.setLocation(this.getLocation().x, this.getLocation().y);

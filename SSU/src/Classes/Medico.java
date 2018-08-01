@@ -39,6 +39,14 @@ public class Medico extends Datos_Personales{
             this.id=id;
     }       
     
+    public Medico(String ciudad,String dir, Date fechaNac, char gen,String primerNombre, String app,String apm,String id){
+            super(ciudad,dir,fechaNac,gen );
+            this.primerNombre=primerNombre;
+            this.apellidoPaterno=app;
+            this.apellidoMaterno=apm;
+            this.id=id;
+    }
+    
     public Medico(){
         super("La Paz","AV 6 de Agosto",new Date(),'M' );
     }

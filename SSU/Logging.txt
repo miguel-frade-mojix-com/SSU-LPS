@@ -1,0 +1,6 @@
+jul 31, 2018 11:40:07 PM Controllers.DataBaseConnector connect
+INFO: Succesffully connected
+jul 31, 2018 11:40:07 PM Controllers.DataBaseConnector connect
+INFO: Succesffully connected
+jul 31, 2018 11:40:07 PM Controllers.DataBaseConnector connect
+INFO: Succesffully connected
