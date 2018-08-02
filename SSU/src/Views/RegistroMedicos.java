@@ -118,6 +118,7 @@ public class RegistroMedicos extends javax.swing.JFrame {
         );
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator1.setToolTipText("Registro Medicos");
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -498,6 +499,8 @@ public class RegistroMedicos extends javax.swing.JFrame {
                 .addComponent(salirBTN)
                 .addGap(26, 26, 26))
         );
+
+        jSeparator1.getAccessibleContext().setAccessibleName("Registro Medicos");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
