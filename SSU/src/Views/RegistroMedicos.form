@@ -112,7 +112,11 @@
     <Component class="javax.swing.JSeparator" name="jSeparator1">
       <Properties>
         <Property name="orientation" type="int" value="1"/>
+        <Property name="toolTipText" type="java.lang.String" value="Registro Medicos"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Registro Medicos"/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator3">
       <Properties>
