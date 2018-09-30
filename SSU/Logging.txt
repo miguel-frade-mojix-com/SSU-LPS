@@ -1,6 +1,6 @@
-jul 31, 2018 11:40:07 PM Controllers.DataBaseConnector connect
+sep 09, 2018 4:17:39 PM Controllers.DataBaseConnector connect
 INFO: Succesffully connected
-jul 31, 2018 11:40:07 PM Controllers.DataBaseConnector connect
+sep 09, 2018 4:17:39 PM Controllers.DataBaseConnector connect
 INFO: Succesffully connected
-jul 31, 2018 11:40:07 PM Controllers.DataBaseConnector connect
+sep 09, 2018 4:17:40 PM Controllers.DataBaseConnector connect
 INFO: Succesffully connected

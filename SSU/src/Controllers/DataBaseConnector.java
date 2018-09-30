@@ -26,7 +26,7 @@ import Classes.UX.MyLogger;
  */
 public class DataBaseConnector {
         
-    private final static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    protected static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
       
     private static String ip = "localhost";
     private static String port = "3307";
@@ -52,10 +52,10 @@ public class DataBaseConnector {
         Connection con = null;
         try {
             con = DriverManager.getConnection(connection, username,password );
-            System.out.println("Connection executed successfully");
+            logger.log(Level.INFO,"Connection executed successfully");
             
         }catch(SQLException ex){
-             System.err.println("Failed connection to " + connection + " " + ex.getMessage() ); 
+             logger.log(Level.WARNING,"Failed connection to " + connection + " " + ex.getMessage() ); 
              return false;
         }
         return true;
@@ -67,7 +67,7 @@ public class DataBaseConnector {
         try {
             con = DriverManager.getConnection(connection, username,password );
         }catch(SQLException ex){
-             System.err.println("Failed connection to " + connection + " " + ex.getMessage() ); 
+             logger.log(Level.WARNING,"Failed connection to " + connection + " " + ex.getMessage() ); 
              return null;
         }
         return con;
@@ -87,7 +87,7 @@ public class DataBaseConnector {
         }else{
             try {
                 con = DriverManager.getConnection(connection, username,password );
-                System.out.println("Connection executed successfully");
+                logger.log(Level.INFO,"Connection executed successfully");
 
                 String query = "SELECT * FROM Usuarios WHERE Username =? and Password =? ";
                 pst =  con.prepareStatement(query);
@@ -96,7 +96,7 @@ public class DataBaseConnector {
                 rs=pst.executeQuery();
 
                 if( rs.next() ){
-                    System.out.println("Welcome user "+   rs.getString("Username"));
+                    logger.log(Level.INFO,"Welcome user "+   rs.getString("Username"));
                     String medicoId= rs.getString("ID_Medico");
                     medico = getMedico(medicoId);
                     int permiso = rs.getInt("Permiso");
@@ -107,17 +107,17 @@ public class DataBaseConnector {
                 }
 
             }catch(SQLException ex){
-                System.err.println("Failed connection to " + connection + " " + ex.getMessage() );    
+                logger.log(Level.WARNING , "Failed connection to {0} {1}", new Object[]{connection, ex.getMessage()});         
                 JOptionPane.showMessageDialog(null, "Problemas de conexión con la base de datos. ","Login Eroor",JOptionPane.ERROR_MESSAGE );
                 return 2;
             }finally{
                 try {
                     if(con!=null){
                         con.close();
-                        System.out.println("Conecction was closed");
+                        logger.log(Level.INFO,"Conecction was closed");
                     }
                 }catch(SQLException ex2){
-                    System.out.println("Controllers.DataBaseConnector.connect()"+ ex2.getMessage());
+                    logger.log(Level.WARNING , "Controllers.DataBaseConnector.connect(){0}", ex2.getMessage());
                 }    
             }
         }
@@ -129,30 +129,34 @@ public class DataBaseConnector {
         PreparedStatement pst =null;
         ResultSet rs2 = null;
         Connection con = null;
-        System.out.println("EL ID DEL USUARIO ES: " + id);
         try{
             con = DriverManager.getConnection(connection, username, password);
             pst=con.prepareStatement(query);
             pst.setString(1, id);
             rs2=pst.executeQuery();
-            while(rs2.next()){
-                
-                aux = new Medico(rs2.getNString(4), rs2.getString(7), rs2.getDate(9), rs2.getString("Genero").charAt(0), rs2.getString("Primer_Nombre"), rs2.getString("Segundo_Nombre"), rs2.getString(2), rs2.getString(3), rs2.getString(5), rs2.getString(6), rs2.getString(8), rs2.getString(10), rs2.getString(11),rs2.getString("ID_Medico") );
-                
+            while(rs2.next()){                
+                aux = new Medico(rs2.getNString(4), rs2.getString(7), rs2.getDate(9), rs2.getString("Genero").charAt(0),
+                        rs2.getString("Primer_Nombre"), rs2.getString("Segundo_Nombre"), rs2.getString(2),
+                        rs2.getString(3), rs2.getString(5), rs2.getString(6), rs2.getString(8), rs2.getString(10),
+                        rs2.getString(11),rs2.getString("ID_Medico") );
             }
-            
-            
         }catch (SQLException ex){
-            System.out.println("Controllers.DataBaseConnector.getMedico()" + ex.getMessage());
+            logger.log(Level.WARNING , "Controllers.DataBaseConnector.getMedico(){0}", ex.getMessage());
             aux=new Medico();
         }finally{
             try{  
                 if(con!=null){
                         con.close();
-                        System.out.println("Conecction was closed");
+                        logger.log(Level.INFO,"Conecction was closed");
+                }
+                if(rs2 != null){
+                    rs2.close();
+                }
+                if(pst!=null){
+                    pst.close();
                 }
             }catch(SQLException exe){
-                System.err.println("" + exe.getMessage());
+                logger.log(Level.WARNING,"" + exe.getMessage());
             }
         }
         return aux;
@@ -165,7 +169,7 @@ public class DataBaseConnector {
         FileInputStream file = new FileInputStream("config.txt");
         
         BufferedReader br = new BufferedReader(new InputStreamReader(file) );
-        System.out.println("Controllers.DataBaseConnector.config()");
+        logger.log(Level.INFO,"Controllers.DataBaseConnector.config()");
         String strLine;
         int i=0;
        
@@ -178,7 +182,7 @@ public class DataBaseConnector {
        //Close the input stream
        br.close();
      }catch(IOException ex){
-         System.out.println("Error file not found ");
+        logger.log(Level.WARNING ,"Error file not found ");
      }       
      return results;
     }
@@ -204,14 +208,11 @@ public class DataBaseConnector {
             File file = new File("config.txt");
             FileOutputStream fileStream = new FileOutputStream(file,false);
             OutputStreamWriter writer2 = new OutputStreamWriter(fileStream, StandardCharsets.UTF_8);
-            
             writer2.write(sb.toString());
-            
             writer2.close();
-        
         }catch(IOException ex){ // false to overwrite.
         
-            System.out.println("Controllers.DataBaseConnector.guardarConfiguracion() error: "+ ex.getMessage());
+            logger.log(Level.WARNING,"Controllers.DataBaseConnector.guardarConfiguracion() error: "+ ex.getMessage());
         
         }
     }
@@ -232,20 +233,20 @@ public class DataBaseConnector {
             ps.executeUpdate();
             
         }catch(SQLException ex){
-            System.out.println("Insertar medico fallo:  "+ ex.getMessage());
+            logger.log(Level.WARNING,"Insertar medico fallo:  "+ ex.getMessage());
         }finally{
             try{
                if(con!=null)
                    con.close();
            }catch(SQLException exe){
-               System.out.println("Connection couldnot close: " + exe.getMessage());
+               logger.log(Level.WARNING,"Connection couldnot close: " + exe.getMessage());
            }
            try{
                if(ps!=null){
                    ps.close();
                }
            }catch(SQLException exe2){
-               System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
+               logger.log(Level.WARNING,"Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
            }
         }
     }

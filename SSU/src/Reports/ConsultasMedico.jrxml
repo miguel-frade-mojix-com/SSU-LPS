@@ -62,18 +62,18 @@ where medicos.ID_Medico = $P!{idMedico}]]>
 		<band height="65" splitType="Stretch">
 			<staticText>
 				<reportElement x="85" y="41" width="100" height="20" uuid="d367149e-59f4-4c65-b2a1-ef2846df1c10"/>
-				<text><![CDATA[Nombre]]></text>
+				<text><![CDATA[Nombre Paciente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="185" y="41" width="100" height="20" uuid="cf4682a4-c9af-42db-9c91-7c51031ae661"/>
+				<reportElement x="175" y="41" width="100" height="20" uuid="cf4682a4-c9af-42db-9c91-7c51031ae661"/>
 				<text><![CDATA[Apellido Paterno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="285" y="41" width="100" height="20" uuid="32c6959f-d6ce-4853-8fea-edc90ba4dd30"/>
+				<reportElement x="275" y="40" width="100" height="20" uuid="32c6959f-d6ce-4853-8fea-edc90ba4dd30"/>
 				<text><![CDATA[Apellido Materno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="385" y="41" width="100" height="20" uuid="85f71f6b-335f-47a5-801a-b82bf3282ede"/>
+				<reportElement x="375" y="41" width="100" height="20" uuid="85f71f6b-335f-47a5-801a-b82bf3282ede"/>
 				<text><![CDATA[Fecha Agendada]]></text>
 			</staticText>
 			<staticText>

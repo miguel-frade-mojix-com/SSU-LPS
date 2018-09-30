@@ -5,11 +5,12 @@
         <group>
             <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/RegistroMedicos.java</file>
             <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Controllers/MedicosDAO.java</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Classes/Agenda.java</file>
             <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Controllers/DataBaseConnector.java</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/Examenes_Laboratorio.java</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Controllers/DiagnosticoDAO.java</file>
-            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/DatosPaciente.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Controllers/RecetaDAO.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/DetalleMedicamento.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/Login.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Classes/Medico.java</file>
+            <file>file:/C:/gitRepos/TESIS/SSU-LPS/SSU/src/Views/PrescripccionMedica.java</file>
         </group>
     </open-files>
 </project-private>

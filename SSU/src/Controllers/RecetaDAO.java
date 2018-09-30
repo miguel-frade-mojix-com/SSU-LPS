@@ -32,7 +32,7 @@ public class RecetaDAO extends DataBaseConnector{
         ResultSet rs = null;
         Connection con = null;
         
-        String query = "select * from medicamentos where Producto like ? ";
+        String query = "select * from medicamentos where Producto like ? order by producto";
         String res = "%"+nombre+"%";
         try{
             con= DriverManager.getConnection(connection, username, password);

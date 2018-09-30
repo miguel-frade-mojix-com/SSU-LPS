@@ -58,7 +58,7 @@ public class PrescripccionMedica extends javax.swing.JFrame {
         tablaMedicamentos = new javax.swing.JTable();
         agregarBtn = new javax.swing.JButton();
         panel4 = new java.awt.Panel();
-        jButton2 = new javax.swing.JButton();
+        editBtn = new javax.swing.JButton();
         quitarBtn = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaRecetados = new javax.swing.JTable();
@@ -172,9 +172,16 @@ public class PrescripccionMedica extends javax.swing.JFrame {
 
         panel4.setBackground(new java.awt.Color(153, 153, 255));
 
-        jButton2.setText("EDITAR");
-        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/editar.png"))); // NOI18N
+        editBtn.setText("EDITAR");
+        editBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtnActionPerformed(evt);
+            }
+        });
 
+        quitarBtn.setIcon(new javax.swing.ImageIcon("C:\\gitRepos\\TESIS\\SSU-LPS\\SSU\\src\\Resources\\limpiar.png")); // NOI18N
         quitarBtn.setText("QUITAR");
         quitarBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         quitarBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -217,13 +224,13 @@ public class PrescripccionMedica extends javax.swing.JFrame {
             panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel4Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addComponent(quitarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(812, Short.MAX_VALUE))
+                .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(quitarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 979, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panel4Layout.setVerticalGroup(
@@ -231,10 +238,10 @@ public class PrescripccionMedica extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addGroup(panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(quitarBtn))
+                .addGap(6, 6, 6)
+                .addGroup(panel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(editBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(quitarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -331,7 +338,7 @@ public class PrescripccionMedica extends javax.swing.JFrame {
                 .addComponent(agregarBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(20, 20, 20)
                 .addComponent(panel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(observacionesField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -362,9 +369,9 @@ public class PrescripccionMedica extends javax.swing.JFrame {
     
     private void quitarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitarBtnActionPerformed
         
-        if(filaRemovible!=0){
+        if(filaRemovible!=-1){
             tablaRecetados.remove(filaRemovible);
-            filaRemovible=0;
+            filaRemovible=-1;
         }else{
             JOptionPane.showMessageDialog(rootPane, "Seleccione un medicamento de la lista para remover.");
         }
@@ -423,6 +430,17 @@ public class PrescripccionMedica extends javax.swing.JFrame {
         RecetaDAO.recetarMedicamentos(ben, medicamentos, cantidades, dosificaciones, indicaciones);
         this.setVisible(false);
     }//GEN-LAST:event_guardarBtnActionPerformed
+
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+       if(filaRemovible!=-1){
+            Medicamento editMed =  medicamentosRecetados.get(filaRemovible);
+            if(detalleMed==null){
+                detalleMed=new DetalleMedicamento();
+            }
+            detalleMed.setPrescripcion(this);
+            detalleMed.fillData(editMed);
+       }
+    }//GEN-LAST:event_editBtnActionPerformed
 
 
     public void recetarMedicamento(String [] valores){
@@ -515,10 +533,10 @@ public class PrescripccionMedica extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarBtn;
     private java.awt.TextField busquedaTxt;
+    private javax.swing.JButton editBtn;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JButton guardarBtn;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
