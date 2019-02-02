@@ -50,7 +50,7 @@ where medicos.ID_Medico = $P!{idMedico}]]>
 				<textElement>
 					<font size="36"/>
 				</textElement>
-				<text><![CDATA[Reporte Medicos]]></text>
+				<text><![CDATA[Reporte Médicos]]></text>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="25" y="59" width="100" height="20" uuid="826a0296-d373-4dce-b304-8f296d05b33e"/>

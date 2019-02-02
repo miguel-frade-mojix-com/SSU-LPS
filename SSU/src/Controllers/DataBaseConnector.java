@@ -29,13 +29,13 @@ public class DataBaseConnector {
     protected static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
       
     private static String ip = "localhost";
-    private static String port = "3307";
+    private static String port = "3306";
     private static String database = "segurosocialuniversitario";
     
     //VAriables to connecto to server 
     protected  static String connection= "jdbc:mysql://"+ip+":"+port+"/" + database;   
-    protected static  String password ="ERINnb2uaUZxvlwh";//ERINnb2uaUZxvlwh
-    protected static  String username= "admin";
+    protected static  String password ="";//ERINnb2uaUZxvlwh
+    protected static  String username= "root";
     private static Medico medico;
     
 //    

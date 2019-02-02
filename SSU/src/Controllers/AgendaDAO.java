@@ -24,13 +24,13 @@ public class AgendaDAO extends DataBaseConnector {
     public static LinkedList<Agenda> getAgendados(Date fechaConsulta, String nombreMedico){
         LinkedList agendados = new LinkedList();
         String ID_Medico = getIDMedico(nombreMedico);
-        String fechaHoy ="2018" + "-0"+(fechaConsulta.getMonth()+1) +"-"+fechaConsulta.getDate() ;
+
         Calendar today = Calendar.getInstance();
         today.setTime(fechaConsulta) ;
         today.add(3, 1);
-        
+        String fechaHoy =""+(today.get(1) ) + "-0"+(fechaConsulta.getMonth()+1) +"-"+fechaConsulta.getDate() ;        
         String tomorrow=" "+today.get(1) +"-0" + (today.get(2)+1)+ "-"  + today.get(3);
-        logger.log(Level.INFO,"Fecha de consulta:" + fechaHoy +  " " + fechaConsulta.toString()  +  " mañana:" + tomorrow + " "+today.getTime()  );
+        logger.log(Level.INFO,"Fecha de consulta:" + fechaHoy +  " " + fechaConsulta.toString()  +  " mañana:" + tomorrow + " "+today.getTime() + " ahora" + today.get(1) + " "+ today.get(2)  + "" + today.get(3) );
         String query="SELECT * FROM agenda WHERE ID_MEDICO=?  AND Fecha_Agendada =? ;";
              
         Connection con = null;

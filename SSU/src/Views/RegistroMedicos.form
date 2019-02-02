@@ -104,7 +104,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Registro de Medicos"/>
+            <Property name="text" type="java.lang.String" value="Registro de M&#xe9;dicos"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -130,8 +130,8 @@
         <Container class="javax.swing.JPanel" name="jPanel3">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Ver Reporte Medico">
-                <Property name="tabTitle" type="java.lang.String" value="Ver Reporte Medico"/>
+              <JTabbedPaneConstraints tabName="Ver Reporte M&#xe9;dico">
+                <Property name="tabTitle" type="java.lang.String" value="Ver Reporte M&#xe9;dico"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -145,18 +145,17 @@
                           <Component id="jLabel17" min="-2" pref="139" max="-2" attributes="0"/>
                           <Component id="jLabel18" min="-2" pref="91" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
-                              <Component id="jDateChooser2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="360" max="32767" attributes="0"/>
+                              <Component id="jDateChooser2" min="-2" pref="167" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="reporteBtn" min="-2" pref="154" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <Component id="medicosList" min="-2" pref="313" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="422" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -187,7 +186,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Resources/expedienteClinico.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Ver Reporte Medico"/>
+                <Property name="text" type="java.lang.String" value="Ver Reporte M&#xe9;dico"/>
                 <Property name="horizontalAlignment" type="int" value="11"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -232,7 +231,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cc" green="33" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Medico:"/>
+                <Property name="text" type="java.lang.String" value="M&#xe9;dico:"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -240,8 +239,8 @@
         <Container class="javax.swing.JPanel" name="jPanel4">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Editar Medico">
-                <Property name="tabTitle" type="java.lang.String" value="Editar Medico"/>
+              <JTabbedPaneConstraints tabName="Editar M&#xe9;dico">
+                <Property name="tabTitle" type="java.lang.String" value="Editar M&#xe9;dico"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -262,8 +261,8 @@
         <Container class="javax.swing.JPanel" name="jPanel5">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Eliminar Medico">
-                <Property name="tabTitle" type="java.lang.String" value="Eliminar Medico"/>
+              <JTabbedPaneConstraints tabName="Eliminar M&#xe9;dico">
+                <Property name="tabTitle" type="java.lang.String" value="Eliminar M&#xe9;dico"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -289,8 +288,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Crear Medico">
-                <Property name="tabTitle" type="java.lang.String" value="Crear Medico"/>
+              <JTabbedPaneConstraints tabName="Crear M&#xe9;dico">
+                <Property name="tabTitle" type="java.lang.String" value="Crear M&#xe9;dico"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -326,39 +325,38 @@
                               <Component id="guardarBtn" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="segundoNombreField" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="primerApellidoField" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="segundoApellidoField" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="correoLaboralField" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="correoDiarioField" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="ciudadField" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="telMovilField" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="telOficinaField" alignment="0" pref="170" max="32767" attributes="0"/>
-                                      <Component id="primerNombreField" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="segundoNombreField" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="primerApellidoField" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="segundoApellidoField" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="correoLaboralField" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="correoDiarioField" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="ciudadField" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="telMovilField" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="telOficinaField" alignment="0" pref="170" max="32767" attributes="0"/>
+                                          <Component id="primerNombreField" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel14" alignment="0" min="-2" pref="78" max="-2" attributes="0"/>
+                                          <Component id="jLabel15" min="-2" pref="78" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jSpinner1" min="-2" pref="108" max="-2" attributes="0"/>
+                                          <Component id="dateChooserField" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jComboBox1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jComboBox2" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel14" alignment="0" min="-2" pref="78" max="-2" attributes="0"/>
-                                      <Component id="jLabel15" min="-2" pref="78" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jSpinner1" min="-2" pref="108" max="-2" attributes="0"/>
-                                      <Component id="dateChooserField" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBox1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBox2" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
                                   <Component id="jScrollPane1" min="-2" pref="249" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -404,12 +402,14 @@
                           </Group>
                           <Component id="segundoNombreField" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="12" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="correoLaboralField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jComboBox1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel14" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="correoLaboralField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel14" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -417,13 +417,6 @@
                           <Component id="correoDiarioField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ciudadField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -431,8 +424,15 @@
                                   <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ciudadField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -449,7 +449,7 @@
                                   <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="EspecialidadField" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="35" max="32767" attributes="0"/>
+                              <EmptySpace pref="42" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel7" min="-2" pref="37" max="-2" attributes="0"/>
                                   <Component id="jScrollPane1" min="-2" pref="58" max="-2" attributes="0"/>
@@ -565,7 +565,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="33" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Direccion"/>
+                <Property name="text" type="java.lang.String" value="Direcci&#xf3;n"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="ciudadField">
@@ -604,7 +604,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="33" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Correo Diario"/>
+                <Property name="text" type="java.lang.String" value="Correo D&#xed;ario"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="telOficinaField">
@@ -622,7 +622,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="33" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Tel&#xe9;fono Movil"/>
+                <Property name="text" type="java.lang.String" value="Tel&#xe9;fono M&#xf3;vil"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="telMovilField">

@@ -177,7 +177,7 @@ public class DatosPaciente extends javax.swing.JPanel {
 
         sexoLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         sexoLabel.setForeground(new java.awt.Color(0, 0, 153));
-        sexoLabel.setText("SEXO :");
+        sexoLabel.setText("GÉNERO:");
 
         edadLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         edadLabel.setForeground(new java.awt.Color(0, 0, 153));
@@ -241,9 +241,9 @@ public class DatosPaciente extends javax.swing.JPanel {
                                 .addGap(1, 1, 1)
                                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panel1Layout.createSequentialGroup()
-                                        .addComponent(sexoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(sexoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(sexoText, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(sexoText, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(panel1Layout.createSequentialGroup()
                                         .addComponent(edadLabel)
                                         .addGap(18, 18, 18)
@@ -259,7 +259,7 @@ public class DatosPaciente extends javax.swing.JPanel {
                         .addComponent(tipoBeneficiarioText, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

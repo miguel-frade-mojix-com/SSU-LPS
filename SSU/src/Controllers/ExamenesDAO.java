@@ -129,9 +129,7 @@ public class ExamenesDAO extends DataBaseConnector {
             con = DriverManager.getConnection(connection, username, password);
             pst= con.prepareStatement(query);
             pst.setString(1, pacienteId );
-            
             rs= pst.executeQuery();
-            
             while(rs.next()){
                 ordenesDeLaboratorio.add(new OrdenDeLaboratorio(rs.getString(1), pacienteId, new Date(rs.getDate(5).getTime() ), rs.getString(4)));
             }

@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
-
+import java.util.logging.Level;
 /**
  *
  * @author Miguel
@@ -44,20 +44,20 @@ public class RecetaDAO extends DataBaseConnector{
                 medicamentos.add(aux);       
             }   
         }catch (SQLException ex){
-            System.out.println("Controllers.RecetaDAO.getMedicamentos()" + ex.getMessage());
+            logger.log(Level.WARNING,"Controllers.RecetaDAO.getMedicamentos()" + ex.getMessage());
         }finally{
             try{
                if(con!=null)
                    con.close();
            }catch(SQLException exe){
-               System.out.println("Connection couldnot close: " + exe.getMessage());
+               logger.log(Level.WARNING,"Connection couldnot close: " + exe.getMessage());
            }   
            try{
                if(pst!=null){
                    pst.close();
                }
            }catch(SQLException exe2){
-               System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
+               logger.log(Level.WARNING,"Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
            }
         }
         return medicamentos;
@@ -99,20 +99,20 @@ public class RecetaDAO extends DataBaseConnector{
             JOptionPane.showMessageDialog(null, "Receta prescrita en laboratorio");
             
         }catch (SQLException ex){
-            System.out.println("Controllers.RecetaDAO.getMedicamentos()" + ex.getMessage());
+            logger.log(Level.WARNING,"Controllers.RecetaDAO.getMedicamentos()" + ex.getMessage());
         }finally{
             try{
                if(con!=null)
                    con.close();
            }catch(SQLException exe){
-               System.out.println("Connection couldnot close: " + exe.getMessage());
+               logger.log(Level.WARNING,"Connection couldnot close: " + exe.getMessage());
            }   
            try{
                if(pst!=null){
                    pst.close();
                }
            }catch(SQLException exe2){
-               System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
+               logger.log(Level.WARNING,"Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
            }
         }
     }
@@ -137,20 +137,20 @@ public class RecetaDAO extends DataBaseConnector{
               recetas.add(receta);
             }   
         }catch (SQLException ex){
-            System.out.println("Controllers.RecetaDAO.getMedicamentos()" + ex.getMessage());
+            logger.log(Level.WARNING,"Controllers.RecetaDAO.getMedicamentos()" + ex.getMessage());
         }finally{
             try{
                if(con!=null)
                    con.close();
            }catch(SQLException exe){
-               System.out.println("Connection couldnot close: " + exe.getMessage());
+               logger.log(Level.WARNING,"Connection couldnot close: " + exe.getMessage());
            }   
            try{
                if(pst!=null){
                    pst.close();
                }
            }catch(SQLException exe2){
-               System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
+               logger.log(Level.WARNING,"Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
            }
         }
         
@@ -172,26 +172,26 @@ public class RecetaDAO extends DataBaseConnector{
             pst.setString(1, recetaId);
             rs=pst.executeQuery();
             while(rs.next()){
-                System.out.println("Controllers.RecetaDAO.getDetalleReceta()  Successful detalles"  );
+                logger.log(Level.INFO,"Controllers.RecetaDAO.getDetalleReceta()  Successful detalles"  );
 
                 DetalleReceta detalle = new DetalleReceta(rs.getString("Producto"), rs.getInt("Cantidad"), rs.getString("Dosificacion"), rs.getString("Indicaciones"));
                 detalleRecetas.add(detalle);
             }   
         }catch (SQLException ex){
-            System.out.println("Controllers.RecetaDAO.DetalleMedicamentos() " + ex.getMessage());
+            logger.log(Level.WARNING,"Controllers.RecetaDAO.DetalleMedicamentos() " + ex.getMessage());
         }finally{
             try{
                if(con!=null)
                    con.close();
            }catch(SQLException exe){
-               System.out.println("Connection couldnot close: " + exe.getMessage());
+               logger.log(Level.WARNING,"Connection couldnot close: " + exe.getMessage());
            }   
            try{
                if(pst!=null){
                    pst.close();
                }
            }catch(SQLException exe2){
-               System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
+               logger.log(Level.WARNING,"Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
            }
         }
         
