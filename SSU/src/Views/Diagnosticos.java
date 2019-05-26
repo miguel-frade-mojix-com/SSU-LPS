@@ -438,8 +438,6 @@ public class Diagnosticos extends javax.swing.JFrame {
         // TODO add your handling code here:
         CIE_TEXTFIELD.setText(null);
         limpiarLista(tablaEnfermedades);
-        
-        
     }//GEN-LAST:event_limpiarBtnActionPerformed
 
     private void buscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarBtnActionPerformed
@@ -478,7 +476,6 @@ public class Diagnosticos extends javax.swing.JFrame {
 
     private void guardarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarBtnActionPerformed
         StringBuilder sb = new StringBuilder("");
-        
         sb.append(impresonField.getText() + "\n");
         int diagnosticos= tablaDiagnosticadas.getRowCount();
         String enfermedades[] =new String[diagnosticos];
@@ -489,7 +486,6 @@ public class Diagnosticos extends javax.swing.JFrame {
     //    CIEDAO.registrarEnfermedad(consulta.getDatosPacientes().getPaciente().getID() , enfermedades);
         consulta.fillDiagnostico(sb.toString());
         this.setVisible(false);
-        
     }//GEN-LAST:event_guardarBtnActionPerformed
 
     /**

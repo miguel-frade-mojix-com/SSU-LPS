@@ -26,7 +26,7 @@ public class DiagnosticoDAO extends DataBaseConnector{
         
         Connection con = null;
         PreparedStatement pst=null;  
-        String query = "insert into diagnosticos"  +
+        String query = "insert into diagnosticos "  +
                 "(ID_Diagnostico, Analitico,Fecha_De_Consulta,ID_Beneficiario,ID_Medico,Objetivo,Plan,Subjetivo)"+
                 "values (?,?,?,?,?,?,?,?);";
         
@@ -42,12 +42,21 @@ public class DiagnosticoDAO extends DataBaseConnector{
             pst.setString(5, DataBaseConnector.getMedico().getID());
             pst.setString(6, objetivo);
             pst.setString(7, plan);
-            pst.setString(0, subjetivo);
+            pst.setString(8, subjetivo);
             
+            System.out.println(analitico );
+            System.out.println(timeStamp );
+            System.out.println(objetivo );
+            System.out.println(plan);
+            System.out.println(subjetivo);
+            System.out.println(idBeneficiario);
+            System.out.println(DataBaseConnector.getMedico().getID());
+            
+                    
             pst.executeUpdate();
             
         }catch(SQLException ex){
-            System.out.println("Agendar pacientes has failed:  "+ ex.getMessage());
+            System.out.println("Guardar diagnostico fallo:  "+ ex.getMessage());
         }finally{
                try{
                if(con!=null)
@@ -55,16 +64,13 @@ public class DiagnosticoDAO extends DataBaseConnector{
            }catch(SQLException exe){
                System.out.println("Connection couldnot close: " + exe.getMessage());
            }
-            
            try{
                if(pst!=null){
                    pst.close();
                }
            }catch(SQLException exe2){
-               System.out.println("Controllers.AgendaDAO.getAgendados() resultSet couldnot close" + exe2.getMessage());
+               System.out.println("Controllers.DIAGNOSTICO.GUARDARdIAGNOSTICO() resultSet couldnot close" + exe2.getMessage());
            }
-            
-            
             
         }      
         
@@ -90,7 +96,7 @@ public class DiagnosticoDAO extends DataBaseConnector{
             pst.setString(6, laboratorioId);
             pst.setString(7, signosVitalesId);
             pst.executeUpdate();
-             JOptionPane.showMessageDialog(null, "Registro guardado exitosamente");
+            JOptionPane.showMessageDialog(null, "Registro guardado exitosamente");
             
         }catch(SQLException ex){
             System.out.println("Agendar pacientes has failed:  "+ ex.getMessage());

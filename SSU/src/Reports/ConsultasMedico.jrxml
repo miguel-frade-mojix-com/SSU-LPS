@@ -54,7 +54,7 @@ where medicos.ID_Medico = $P!{idMedico}]]>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="25" y="59" width="100" height="20" uuid="826a0296-d373-4dce-b304-8f296d05b33e"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[(java.text.DateFormat.getDateInstance(java.text.DateFormat.LONG,java.util.Locale.GERMAN)).format(new java.util.Date())]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

@@ -460,7 +460,13 @@ public class Consulta extends javax.swing.JFrame {
         valores[2]=analiticoTxt.getText();
         valores[3] = planField.getText();
         valores[4]= datosPaciente2.getPaciente().getID();        
-        DiagnosticoDAO.guardarConfiguracion(valores);
+        System.out.println(valores[0]);
+        System.out.println(valores[1]);
+        System.out.println(valores[2]);
+        System.out.println(valores[3]);
+        System.out.println(valores[4]);
+        
+        DiagnosticoDAO.guardarDiagnostico(valores[0],valores[1],valores[2],valores[3],valores[4]);
         
         AgendaDAO.actualizarConsulta(agendaId);
         inicio.actualizarConsulta();

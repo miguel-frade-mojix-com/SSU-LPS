@@ -29,7 +29,7 @@ public class DataBaseConnector {
     protected static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
       
     private static String ip = "localhost";
-    private static String port = "3306";
+    private static String port = "3307";
     private static String database = "segurosocialuniversitario";
     
     //VAriables to connecto to server 
